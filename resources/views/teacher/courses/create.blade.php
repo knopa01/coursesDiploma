@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-я учитель
+тут создается курс
 @endsection

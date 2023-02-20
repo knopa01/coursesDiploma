@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\GetUserTypeController;
+use App\Http\Controllers\Teacher\CreateCourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,10 @@ Route::get('/', function () {
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//teacher
 Route::get('/home', [GetUserTypeController::class, 'index']);
+
+Route::get('/home/create-course', [CreateCourseController::class, 'create'])->middleware(['auth']);
+
+

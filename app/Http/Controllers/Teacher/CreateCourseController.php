@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\User;
-class CreatedCoursesController extends Controller
+class CreateCourseController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function index()
+    public function create()
     {
-        $user = User::find(Auth::id());
+        //$user = User::find(Auth::id());
         //$courses = Courses::where('user_id', $user);
         //$courses = Courses::all();
         //dd($user->courses);
 
-        return view("teacher.courses.index", ['data' => $user->courses]);
+        return view("teacher.courses.create");
 
 
     }
