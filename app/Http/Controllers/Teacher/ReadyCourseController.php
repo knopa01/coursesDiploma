@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\User;
-class CreateCourseController extends Controller
+class ReadyCourseController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -19,11 +19,12 @@ class CreateCourseController extends Controller
         //$courses = Courses::where('user_id', $user);
         //$courses = Courses::all();
         //dd($user->courses);
+        //$course_name =
+        $course = new Courses();
 
-        return view("teacher.courses.create");
+        return view("teacher.courses.done");
 
 
     }
-    
 }
 
