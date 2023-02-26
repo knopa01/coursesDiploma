@@ -20,19 +20,14 @@ class GetUserTypeController extends Controller
         $id = Auth::id();
         $user = DB::table('users')->select('usertype')->where('id', '=', $id)->value('usertype');
         if ($user == 'teacher') {
-
             $result = (new CreatedCoursesController)->index();
             return $result;
-
         }
-        else if ($user == 'student') {
 
+        else if ($user == 'student') {
             $result = (new SelectedCoursesController)->index();
             return $result;
         }
         //$usertype = $user['usertype'];
-
-
-
     }
 }

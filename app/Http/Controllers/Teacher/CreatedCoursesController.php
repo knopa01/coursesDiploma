@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\User;
+use Orchid\Support\Facades\Layout;
+use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Support\Facades\Toast;
 class CreatedCoursesController extends Controller
 {
     /**
@@ -29,4 +32,5 @@ class CreatedCoursesController extends Controller
         $input = Request::METHOD_GET;
         return $input;
     }
+
 }
