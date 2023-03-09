@@ -16,17 +16,17 @@ class CourseContentController extends Controller
      */
     public function index($course_id)
     {
-        //$user = User::find(Auth::id());
-        //$courses = Courses::where('user_id', $user);
-        //$courses = Courses::all();
-        //dd($user->courses);
 
-        //dd($course_id);
-        //$course_id = $courses->id;
-        $course_plan = CoursePlan::where('course_id', '=', $course_id)->get();
-        //$courses = Courses::where('user_id', $user);
-        //$courses = Courses::all();
-        $data = $course_plan[0]->lectures; //ТУТ ОШИБКА
+
+        $course_plan = Courses::where('id', '=', $course_id)->get();
+        $data = null;
+
+        if($course_plan->count() != 0) {
+
+            $data = $course_plan[0]->contents->sortBy('sort');
+        }
+
+
 
 
         //return view("teacher.courses.index", ['data' => $user->courses]);
