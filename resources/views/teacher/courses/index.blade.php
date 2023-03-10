@@ -12,6 +12,6 @@
     </div>
 @endforeach
 <div class="btn">
-    <a href="/home/create-course">Создать курс</a>
+    <a href={{route('create_course')}}>Создать курс</a>
 </div>
 @endsection

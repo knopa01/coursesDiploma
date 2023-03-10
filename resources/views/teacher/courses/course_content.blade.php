@@ -8,10 +8,13 @@
                     <h3>{{ $elem->name }}</h3>
 
                 </a>
-
             </div>
 
         </div>
     @endforeach
 @endif
+<div class="btn">
+    <a href="{{ route('create_content', ['course_id'=>$course_id]) }}">Create</a>
+
+</div>
 @endsection
