@@ -4,9 +4,13 @@
     @foreach ($data as $elem)
         <div class="alert alert-info">
             <div>
-                <h3>{{ $elem->name }}</h3>
-                <h3>{{ $elem->description }}</h3>
+                <a href="{{ route('manage_content', ['course_id'=>$course_id, 'content_id'=>$elem->id]) }}">
+                    <h3>{{ $elem->name }}</h3>
+
+                </a>
+
             </div>
+
         </div>
     @endforeach
 @endif

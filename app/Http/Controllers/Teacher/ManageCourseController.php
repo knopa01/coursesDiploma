@@ -28,6 +28,7 @@ class ManageCourseController extends Controller
     {
         $user_id = Auth::id();
         $course_name = request()->course_name;
+        dd(request());
         $course_description = request()->course_description;
         DB::table('courses')->insert([
             array(
@@ -39,7 +40,7 @@ class ManageCourseController extends Controller
         $message = "Данные успешно добавлены!";
         return view("teacher.courses.done", compact('message'));
     }
-    
+
 
 
 }
