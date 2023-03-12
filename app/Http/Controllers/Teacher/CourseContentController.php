@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CoursePlan;
 use App\Models\Courses;
 use App\Models\Content;
+use App\Models\Test;
 use App\Models\User;
 class CourseContentController extends Controller
 {
@@ -24,16 +25,38 @@ class CourseContentController extends Controller
 
             $data = $course_plan[0]->contents->sortBy('sort');
         }
+
         //return view("teacher.courses.index", ['data' => $user->courses]);
         return view("teacher.courses.course_content", ['data' => $data, 'course_id' => $course_id]);
     }
+    public function show_form() {
+        $course_id = request()->course_id;
 
+        return view("teacher.courses.create_content", ['course_id'=>$course_id]);
+    }
     public function show_content($course_id, $content_id) {
 
         $data = Content::where('id', '=', $content_id)->get();
-        //dd($data);
 
-        return view("teacher.courses.edit_course_content", ['data' => $data, 'course_id' => $course_id]);
+        $tests = null;
+
+        if($data[0]->type_of_content == "task") {
+            $tests = Test::where('content_id', '=', $content_id)->get();
+            //dd($tests);
+
+        }
+
+
+
+
+
+        return view("teacher.courses.edit_course_content", ['data' => $data, 'tests'=> $tests, 'course_id' => $course_id]);
+    }
+
+    public function show_test($course_id, $content_id, $test_id) {
+
+        $data = Test::where('id', '=', $test_id)->get();
+        return view("teacher.courses.edit_test", ['data' => $data, 'content_id'=>$content_id, 'course_id' => $course_id]);
     }
 
     public function edit_content() {
@@ -42,20 +65,41 @@ class CourseContentController extends Controller
         $content_name = request()->content_name;
         $content_type = request()->content_type;
         $content_description = request()->content_description;
-
-
-        Content::where('id', $content_id)->update(array(
-            'name'=>$content_name,
-            'description'=>$content_description
-        ));
-        $message = "Данные успешно добавлены!";
-        return view("teacher.courses.done", compact('message'));
-    }
-
-    public function show_form() {
         $course_id = request()->course_id;
-        return view("teacher.courses.create_content", ['course_id'=>$course_id]);
+        $data = Content::where('id', '=', $content_id)->get();
+
+        if ($data[0]->name != $content_name || $data[0]->description != $content_description) {
+            Content::where('id', $content_id)->update(array(
+                'name'=>$content_name,
+                'description'=>$content_description
+            ));
+            $ctrl = "content";
+            $message = "Данные успешно обновлены!";
+            return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>null]);
+        } else {
+            return redirect()->route('manage_course', ['course_id'=>$course_id]);
+        }
     }
+    public function edit_test() {
+        $content_id = request()->content_id;
+        $test_id = request()->test_id;
+        $test_input = request()->test_input;
+        $test_output = request()->test_output;
+        $data = Test::where('id', '=', $test_id)->get();
+        $course_id = request()->course_id;
+        if ($data[0]->test_input != $test_input || $data[0]->test_output != $test_output) {
+            Test::where('id', $test_id)->update(array(
+                'test_input'=>$test_input,
+                'test_output'=>$test_output
+            ));
+            $ctrl = "test";
+            $message = "Данные успешно обновлены!";
+            return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>$content_id]);
+        } else {
+            return redirect()->route('manage_content', ['course_id'=>$course_id, 'content_id'=>$content_id]);
+        }
+    }
+
     public function create_content() {
         $content_name = request()->content_name;
         $content_type = request()->content_type;
@@ -71,12 +115,34 @@ class CourseContentController extends Controller
                 'course_id' => $course_id
             )
         ]);
-
-
         $message = "Данные успешно добавлены!";
-        return view("teacher.courses.done", compact('message'));
+        $ctrl="content";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>null]);
     }
 
+    public function create_test_form() {
+        $content_id = request()->content_id;
+        $course_id = request()->course_id;
+        return view("teacher.courses.create_test", ['course_id'=>$course_id, 'content_id'=>$content_id]);
+    }
+    public function create_test() {
+
+        $test_input = request()->test_input;
+        $test_output = request()->test_output;
+        $course_id = request()->course_id;
+        $content_id = request()->content_id;
+
+        DB::table('tests')->insert([
+            array(
+                'test_input' => $test_input,
+                'test_output' => $test_output,
+                'content_id'=> $content_id,
+            )
+        ]);
+        $ctrl = "test";
+        $message = "Данные успешно добавлены!";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>$content_id]);
+    }
 
 
 }

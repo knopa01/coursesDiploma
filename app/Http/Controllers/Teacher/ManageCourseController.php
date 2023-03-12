@@ -38,7 +38,8 @@ class ManageCourseController extends Controller
             )
         ]);
         $message = "Данные успешно добавлены!";
-        return view("teacher.courses.done", compact('message'));
+        $ctrl = "course";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);
     }
 
 
