@@ -190,10 +190,15 @@ class CourseContentController extends Controller
         if ($content) {
             $content->delete();
         }
-        $message = "Тест удален";
+        $message = "Задача удалена";
+        if($content->type_of_content == "lecture") {
+            $message = "Теория удалена";
+        }
+
         $ctrl = "content";
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>null]);
     }
+
 
 
 }

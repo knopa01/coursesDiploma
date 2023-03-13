@@ -42,15 +42,24 @@ class ManageCourseController extends Controller
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);
     }
 
+    public function delete_course() {
+        $course_id = request()->course_id;
+        $course = Courses::find($course_id);
+        $course->delete();
+        $message = "Курс удален";
+        $ctrl = "course";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);
+    }
+
     public function index()
     {
         $user = User::find(Auth::id());
         //$courses = Courses::where('user_id', $user);
         //$courses = Courses::all();
         //dd($user->courses);
-
-
-        return view("teacher.courses.index", ['data' => $user->courses]);
+        $data = $user->courses;
+        //dd($data);
+        return view("teacher.courses.index", ['data' => $data]);
 
 
     }

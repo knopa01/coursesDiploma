@@ -19,6 +19,11 @@
             </div>
             <div class="row mb-0">
                 <div class="col-md-8 offset-md-4">
+                    <a href="{{ route('delete_course', ['course_id'=>$course->id]) }}">Удалить курс</a>
+                </div>
+            </div>
+            <div class="row mb-0">
+                <div class="col-md-8 offset-md-4">
                     <button type="submit" class="btn btn-primary">
                         ОК
                     </button>
