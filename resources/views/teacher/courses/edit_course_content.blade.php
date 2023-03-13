@@ -29,7 +29,6 @@
                                     <div class="col-md-6">
                                         <textarea id="content_description" class="form-control" name="content_description">{{$data[0]->description}}</textarea>
                                     </div>
-
                                 </div>
                                 @if ($data[0]->type_of_content=="task")
                                     <h3>Тесты</h3>
@@ -54,6 +53,15 @@
                                         </div>
                                     </div>
                                 @endif
+                                <div class="row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        @if ($data[0]->type_of_content == "task")
+                                            <a href="{{ route('delete_content', ['content_id'=>$data[0]->id]) }}">Удалить задачу</a>
+                                        @else
+                                            <a href="{{ route('delete_content', ['content_id'=>$data[0]->id]) }}">Удалить теорию</a>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button type="submit" class="btn btn-primary">

@@ -42,6 +42,18 @@ class ManageCourseController extends Controller
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);
     }
 
+    public function index()
+    {
+        $user = User::find(Auth::id());
+        //$courses = Courses::where('user_id', $user);
+        //$courses = Courses::all();
+        //dd($user->courses);
+
+
+        return view("teacher.courses.index", ['data' => $user->courses]);
+
+
+    }
 
 
 }

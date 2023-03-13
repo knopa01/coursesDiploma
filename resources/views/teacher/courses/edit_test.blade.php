@@ -31,13 +31,16 @@
                                     </div>
 
                                 </div>
-
+                                <div class="row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        <a href="{{ route('delete_test', ['test_id'=>$data[0]->id]) }}">Удалить тест</a>
+                                    </div>
+                                </div>
                                 <div class="row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
                                             ОК
                                         </button>
-
                                     </div>
                                 </div>
 

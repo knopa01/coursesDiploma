@@ -18,22 +18,48 @@ class CourseContentController extends Controller
      */
     public function index($course_id)
     {
-        $course_plan = Courses::where('id', '=', $course_id)->get();
+        $course_data = Courses::where('id', '=', $course_id)->get();
         $data = null;
 
-        if($course_plan->count() != 0) {
+        if($course_data->count() != 0) {
 
-            $data = $course_plan[0]->contents->sortBy('sort');
+            $data = $course_data[0]->contents->sortBy('sort');
+            $course = $course_data[0];
+
         }
 
         //return view("teacher.courses.index", ['data' => $user->courses]);
-        return view("teacher.courses.course_content", ['data' => $data, 'course_id' => $course_id]);
+        return view("teacher.courses.course_content", ['data' => $data, 'course'=>$course ,'course_id' => $course_id]);
     }
+
+
+    public function edit_course() {
+        $course_id = request()->course_id;
+        $course_name = request()->course_name;
+        $course_description = request()->course_description;
+        $data = Courses::where('id', '=', $course_id)->get();
+
+        if ($data[0]->course_name != $course_name || $data[0]->course_description != $course_description) {
+            Courses::where('id', $course_id)->update(array(
+                'course_name'=>$course_name,
+                'course_description'=>$course_description
+            ));
+            $ctrl = "content";
+            $message = "Данные успешно обновлены!";
+            return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>null]);
+        } else {
+            return redirect()->route('manage_course', ['course_id'=>$course_id]);
+        }
+    }
+
+
     public function show_form() {
         $course_id = request()->course_id;
 
         return view("teacher.courses.create_content", ['course_id'=>$course_id]);
     }
+
+
     public function show_content($course_id, $content_id) {
 
         $data = Content::where('id', '=', $content_id)->get();
@@ -42,22 +68,17 @@ class CourseContentController extends Controller
 
         if($data[0]->type_of_content == "task") {
             $tests = Test::where('content_id', '=', $content_id)->get();
-            //dd($tests);
-
         }
-
-
-
-
-
         return view("teacher.courses.edit_course_content", ['data' => $data, 'tests'=> $tests, 'course_id' => $course_id]);
     }
+
 
     public function show_test($course_id, $content_id, $test_id) {
 
         $data = Test::where('id', '=', $test_id)->get();
         return view("teacher.courses.edit_test", ['data' => $data, 'content_id'=>$content_id, 'course_id' => $course_id]);
     }
+
 
     public function edit_content() {
 
@@ -80,6 +101,8 @@ class CourseContentController extends Controller
             return redirect()->route('manage_course', ['course_id'=>$course_id]);
         }
     }
+
+
     public function edit_test() {
         $content_id = request()->content_id;
         $test_id = request()->test_id;
@@ -100,6 +123,7 @@ class CourseContentController extends Controller
         }
     }
 
+
     public function create_content() {
         $content_name = request()->content_name;
         $content_type = request()->content_type;
@@ -119,6 +143,7 @@ class CourseContentController extends Controller
         $ctrl="content";
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>null]);
     }
+
 
     public function create_test_form() {
         $content_id = request()->content_id;
@@ -142,6 +167,32 @@ class CourseContentController extends Controller
         $ctrl = "test";
         $message = "Данные успешно добавлены!";
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>$content_id]);
+    }
+
+    public function delete_test() {
+        $test_id = request()->test_id;
+        $test = Test::find($test_id);
+        $content_id = $test->content_id;
+        $course_id = Content::find($content_id)->course_id;
+
+        if ($test) {
+            $test->delete();
+        }
+        $message = "Тест удален";
+        $ctrl = "test";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>$content_id]);
+
+    }
+    public function delete_content() {
+        $content_id = request()->content_id;
+        $content = Content::find($content_id);
+        $course_id = $content->course_id;
+        if ($content) {
+            $content->delete();
+        }
+        $message = "Тест удален";
+        $ctrl = "content";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>null]);
     }
 
 
