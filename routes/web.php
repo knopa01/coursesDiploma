@@ -51,7 +51,8 @@ Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])
 
 
 //student
-Route::get('/home/add-course', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
-Route::get('/home/add-course/submit', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');
+Route::get('/home/search', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
+Route::get('/home/searched', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');
+Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->middleware(['auth'])->name('course_info');// написать
 
 

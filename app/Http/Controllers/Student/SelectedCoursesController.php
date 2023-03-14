@@ -33,18 +33,18 @@ class SelectedCoursesController extends Controller
             foreach ($courses as $course)
             {
                 $data[$i] = [
-                    "course_name" => $course,
+                    "course" => $course,
                     "teacher" =>  User::where('id', '=', $course->user_id)->get()[0]->name
                 ];
                 $i++;
 
             }
-            dd($data[0]["course_name"]->course_name); //Узнать как это вывести
-
-
 
         }
 
         return view('student.add_course', compact('data'));
+    }
+    public function course_info(Request $request) {
+
     }
 }
