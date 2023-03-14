@@ -6,9 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\GetUserTypeController;
 use App\Http\Controllers\Teacher\ManageCourseController;
-use App\Http\Controllers\Teacher\CreatedCoursesController;
-use App\Http\Controllers\Teacher\ReadyCourseController;
 use App\Http\Controllers\Teacher\CourseContentController;
+use App\Http\Controllers\Student\SelectedCoursesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +50,8 @@ Route::post('/home/edit-test/submit', [CourseContentController::class, 'edit_tes
 Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])->middleware(['auth'])->name('delete_test');
 
 
-
+//student
+Route::get('/home/add-course', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
+Route::get('/home/add-course/submit', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');
 
 
