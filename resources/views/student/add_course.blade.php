@@ -11,20 +11,13 @@
     </div>
 
 </form>
-@if ($courses)
+@if ($data)
+    <div class="alert alert-info">
+        @foreach ($data as $d)
+            <h3>{{ $d[]->course_name }}</h3>
 
-    @foreach ($courses as $course)
-        @foreach ($teachers as $teacher)
-            <div class="alert alert-info">
-                <a href="#">
-                    <h3>{{ $course->course_name }}</h3>
-                    <h3>{{ $teacher }}</h3>
-                </a>
-
-            </div>
         @endforeach
-    @endforeach
-
+    </div>
 @else
     <h3>По Вашему запросу ничего не найдено</h3>
 @endif

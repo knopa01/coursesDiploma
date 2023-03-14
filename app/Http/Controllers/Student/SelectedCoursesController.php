@@ -17,29 +17,34 @@ class SelectedCoursesController extends Controller
     }
     public function add_course()
     {
-        $courses = null;
-        $teachers = null;
-        return view('student.add_course', compact('courses', 'teachers'));
+        $data = null;
+        return view('student.add_course', compact('data'));
     }
     public function find_course(Request $request)
     {
         $name = $request->name;
 
         $courses = Courses::where('course_name', 'LIKE', "%{$name}%")->get();
-        $teachers = [];
+
+        $data = [];
         if ($courses)
         {
             $i = 0;
             foreach ($courses as $course)
             {
-                $teachers[$i] =  User::where('id', '=', $course->user_id)->get()[0]->name;
+                $data[$i] = [
+                    "course_name" => $course,
+                    "teacher" =>  User::where('id', '=', $course->user_id)->get()[0]->name
+                ];
                 $i++;
 
             }
+            dd($data[0]["course_name"]->course_name); //Узнать как это вывести
+
 
 
         }
 
-        return view('student.add_course', compact('courses', 'teachers'));
+        return view('student.add_course', compact('data'));
     }
 }
