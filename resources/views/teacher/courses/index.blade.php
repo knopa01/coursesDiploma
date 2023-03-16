@@ -8,7 +8,6 @@
                 <h3>{{ $elem->course_name }}</h3>
                 <h3>{{ $elem->course_description }}</h3>
             </a>
-
         </div>
     @endforeach
 @endif

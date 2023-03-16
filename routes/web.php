@@ -48,11 +48,10 @@ Route::post('/home/course-{course_id}/content{content_id}/submit', [CourseConten
 Route::get('/home/course{course_id}/content{content_id}/test{test_id}', [CourseContentController::class, 'show_test'])->middleware(['auth'])->name('manage_test');
 Route::post('/home/edit-test/submit', [CourseContentController::class, 'edit_test'])->middleware(['auth'])->name('edit_test');
 Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])->middleware(['auth'])->name('delete_test');
-
-
 //student
-Route::get('/home/search', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
+Route::get('/home/search', [SelectedCoursesController::class, 'search_course'])->middleware(['auth'])->name('search_course');
 Route::get('/home/searched', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');
-Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->middleware(['auth'])->name('course_info');// написать
+Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->middleware(['auth'])->name('course_info');
+Route::post('/home/add-course', [CourseContentController::class, 'add_course'])->middleware(['auth'])->name('add_course');// тут ошибка
 
 
