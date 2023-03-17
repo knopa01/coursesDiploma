@@ -8,6 +8,7 @@ use App\Http\Controllers\GetUserTypeController;
 use App\Http\Controllers\Teacher\ManageCourseController;
 use App\Http\Controllers\Teacher\CourseContentController;
 use App\Http\Controllers\Student\SelectedCoursesController;
+use App\Http\Controllers\Student\TrainingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,9 @@ Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//teacher
+
 Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
+//teacher
 //course
 Route::get('/home/create-course', [ManageCourseController::class, 'show_form'])->middleware(['auth'])->name('create_course');
 Route::post('/home/create-course/submit', [ManageCourseController::class, 'create_course'])->middleware(['auth'])->name('created_course');
@@ -54,6 +56,7 @@ Route::get('/home/searched', [SelectedCoursesController::class, 'find_course'])-
 Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->middleware(['auth'])->name('course_info');
 Route::post('/home/add-course', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
 Route::get('/home/{course_id}', [TrainingController::class, 'course_content'])->middleware(['auth'])->name('course_content');
+Route::get('/home/{course_id}/{content_id}', [TrainingController::class, 'show_content'])->middleware(['auth'])->name('show_content');
 
 
 

@@ -7,7 +7,7 @@
 
             <a href="{{ route('course_content', ['course_id'=>$elem["course_id"]]) }}">
                 <h3>{{ $elem["course_name"] }}</h3>
-                <h3>Преподаватель: {{ $elem["teacher"]  }}</h3>
+                <h3>Преподаватель: {{ $elem["teacher"] }}</h3>
             </a>
         </div>
     @endforeach
