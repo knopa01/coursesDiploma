@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-@if ($data->count() != 0)
+@if (count($data) != 0)
     @foreach ($data as $elem)
         <div class="alert alert-info">
 
-            <a href="{{ route('manage_course', ['course_id'=>$elem->id]) }}">
-                <h3>{{ $elem->course_name }}</h3>
-                <h3>{{ $elem->course_description }}</h3>
+            <a href="{{ route('course_content', ['course_id'=>$elem["course_id"]]) }}">
+                <h3>{{ $elem["course_name"] }}</h3>
+                <h3>Преподаватель: {{ $elem["teacher"]  }}</h3>
             </a>
         </div>
     @endforeach

@@ -52,6 +52,8 @@ Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])
 Route::get('/home/search', [SelectedCoursesController::class, 'search_course'])->middleware(['auth'])->name('search_course');
 Route::get('/home/searched', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');
 Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->middleware(['auth'])->name('course_info');
-Route::post('/home/add-course', [CourseContentController::class, 'add_course'])->middleware(['auth'])->name('add_course');// тут ошибка
+Route::post('/home/add-course', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
+Route::get('/home/{course_id}', [TrainingController::class, 'course_content'])->middleware(['auth'])->name('course_content');
+
 
 

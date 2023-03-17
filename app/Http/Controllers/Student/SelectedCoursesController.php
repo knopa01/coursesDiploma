@@ -13,7 +13,25 @@ class SelectedCoursesController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
-        $data = $user->student_courses;
+        $data = null;
+        $courses = $user->student_courses;
+        //dd($courses);
+
+        if ($courses->count() != 0) {
+            $i = 0;
+            foreach ($courses as $course) {
+                $course_data = Courses::find($course->course_id);
+                $data[$i] = [
+                    "course_id" =>$course_data->id,
+                    "course_name" => $course_data->course_name,
+                    "course_description" => $course_data->course_description,
+                    "teacher" =>  User::where('id', '=', $course->user_id)->get()[0]->name
+
+                ];
+                $i++;
+            }
+        }
+        //dd($data);
         return view('student.index', compact('data'));
     }
     public function search_course()
@@ -40,6 +58,22 @@ class SelectedCoursesController extends Controller
         }
         return view('student.find_course', compact('data'));
     }
+    public function add_course() {
+        $user_id = Auth::id();
+        $user = User::find($user_id);
+        $course_id = request()->course_id;
+        //dd($course_id);
+        DB::table('student_courses')->insert([
+            array(
+                'user_id' => $user_id,
+                'course_id' => $course_id,
+            )
+        ]);
+        $data = $user->student_courses;
+        return redirect(route('home'));
+
+
+    }
     public function course_info() {
         $course_id = request()->course_id;
         $course = Courses::where('id', '=', $course_id)->get();
@@ -48,21 +82,7 @@ class SelectedCoursesController extends Controller
             "teacher" =>  User::where('id', '=', $course[0]->user_id)->get()[0]->name
         ];
         return view('student.course_info', compact('data'));
-    }
-    public function add_course() {
-        $user_id = Auth::id();
-        $user = User::find($user_id);
-        $course_id = request()->course_id;
-
-        DB::table('student_courses')->insert([
-            array(
-                'user_id' => $user_id,
-                'course_id' => $course_id,
-            )
-        ]);
-        $data = $user->student_courses;
-        return view('student.index', compact('data'));
-
 
     }
+
 }
