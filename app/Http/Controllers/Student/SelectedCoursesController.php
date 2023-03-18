@@ -71,9 +71,8 @@ class SelectedCoursesController extends Controller
         ]);
         $data = $user->student_courses;
         return redirect(route('home'));
-
-
     }
+
     public function course_info() {
         $course_id = request()->course_id;
         $course = Courses::where('id', '=', $course_id)->get();

@@ -57,6 +57,8 @@ Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->mi
 Route::post('/home/add-course', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
 Route::get('/home/{course_id}', [TrainingController::class, 'course_content'])->middleware(['auth'])->name('course_content');
 Route::get('/home/{course_id}/{content_id}', [TrainingController::class, 'show_content'])->middleware(['auth'])->name('show_content');
+//Route::get('/home/{course_id}/{content_id}', [TrainingController::class, 'next'])->middleware(['auth'])->name('next');
+//Route::get('/home/{course_id}/{content_id}', [TrainingController::class, 'previous'])->middleware(['auth'])->name('previous');
 
 
 

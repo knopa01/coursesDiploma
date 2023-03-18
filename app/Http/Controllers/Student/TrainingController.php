@@ -35,11 +35,16 @@ class TrainingController extends Controller
         } else {
             return view('student.show_lecture', compact('course_name', 'content'));
         }
-
+    }
+    public function next() {
+        $content_id = request()->content_id;
+        $current_content_sort = Content::find($content_id)->sort;
+        dd($current_content_sort);
 
     }
+    public function previous() {
 
-
+    }
 
 }
 
