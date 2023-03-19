@@ -27,24 +27,18 @@ class TrainingController extends Controller
     }
     public function show_content() {
         $course_id = request()->course_id;
-        $course_name = request()->course_name;
-        $content_id = request()->content_id;
-        $content = Content::find($content_id);
+        $contents = Content::where('course_id', '=', $course_id)->paginate(1);
+        //dd($contents);
+        return view('student.show_content', compact('contents'));
+        /*
         if ($content->type_of_content == "task") {
-            return view('student.show_task', compact('course_name', 'content'));
+            return view('student.show_task', compact('course_name', 'content', 'contents'));
         } else {
-            return view('student.show_lecture', compact('course_name', 'content'));
+            return view('student.show_lecture', compact('course_name', 'content', 'contents'));
         }
+        */
     }
-    public function next() {
-        $content_id = request()->content_id;
-        $current_content_sort = Content::find($content_id)->sort;
-        dd($current_content_sort);
 
-    }
-    public function previous() {
-
-    }
 
 }
 
