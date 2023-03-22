@@ -18,7 +18,20 @@
 
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="language_id" class="col-md-4 col-form-label text-md-end">{{ __('Выберете язык') }}</label>
 
+                            <select id="language_id" name="language_id">
+                                <option selected>Выберите значение</option>
+                                @foreach ($languages as $language)
+                                    <option value={{$language->id}}>{{$language->language_name}}</option>
+
+                                @endforeach
+
+
+                            </select>
+
+                        </div>
                         <div class="row mb-3">
                             <label for="course_description" class="col-md-4 col-form-label text-md-end">Описание курса</label>
 

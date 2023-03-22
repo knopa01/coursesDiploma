@@ -28,8 +28,9 @@ class TrainingController extends Controller
     public function show_content() {
         $course_id = request()->course_id;
         $contents = Content::where('course_id', '=', $course_id)->paginate(1);
+        $navbar = Content::where('course_id', '=', $course_id)->get();
         //dd($contents);
-        return view('student.show_content', compact('contents'));
+        return view('student.show_content', compact('contents', 'navbar'));
         /*
         if ($content->type_of_content == "task") {
             return view('student.show_task', compact('course_name', 'content', 'contents'));

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\User;
+use App\Models\Language;
 class ManageCourseController extends Controller
 {
     /**
@@ -19,21 +20,22 @@ class ManageCourseController extends Controller
         //$courses = Courses::where('user_id', $user);
         //$courses = Courses::all();
         //dd($user->courses);
-
-        return view("teacher.courses.create");
-
-
+        $languages = Language::all();
+        //dd($languages);
+        return view("teacher.courses.create", compact('languages'));
     }
     public function create_course()
     {
         $user_id = Auth::id();
         $course_name = request()->course_name;
+        $language_id = request()->language_id;
 
         $course_description = request()->course_description;
         DB::table('courses')->insert([
             array(
                 'user_id' => $user_id,
                 'course_name' => $course_name,
+                'language_id' => $language_id,
                 'course_description' => $course_description
             )
         ]);
