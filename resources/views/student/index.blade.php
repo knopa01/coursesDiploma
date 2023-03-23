@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-@if (count($data) != 0)
+@if ($data)
     @foreach ($data as $elem)
         <div class="alert alert-info">
 
