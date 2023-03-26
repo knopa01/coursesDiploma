@@ -27,7 +27,7 @@
                                 <div class="row mb-3">
                                     <label for="content_description" class="col-md-4 col-form-label text-md-end">Содержание</label>
                                     <div class="col-md-6">
-                                        <textarea id="content_description" class="form-control" name="content_description">{{$data[0]->description}}</textarea>
+                                        <textarea id="content_description" class="form-control ckeditor" name="content_description">{{$data[0]->description}}</textarea>
                                     </div>
                                 </div>
                                 @if ($data[0]->type_of_content=="task")

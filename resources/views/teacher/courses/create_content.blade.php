@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -31,15 +32,28 @@
                                 </div>
                                 <div class="row mb-3">
                                     <label for="content_description" class="col-md-4 col-form-label text-md-end">Содержание</label>
-                                    <div class="col-md-6">
+                                    {{--
+                                        <div class="col-md-6">
                                         <textarea id="content_description" class="form-control" name="content_description"></textarea>
                                     </div>
-                                </div>
+                                        --}}
+
+
+                                        <div class="form-group">
+                                            <textarea class="ckeditor form-control" name="content_description"></textarea>
+                                        </div>
+
+
+
+
+
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <input id="content_sort" type="number" class="form-control" name="content_sort" value="">
                                     </div>
                                 </div>
+
+                                <h1>Classic editor</h1>
 
                                 <div class="row mb-0">
                                     <div class="col-md-8 offset-md-4">
@@ -59,4 +73,5 @@
             </div>
         </div>
     </div>
+
 @endsection

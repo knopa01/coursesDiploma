@@ -9,7 +9,13 @@
     @foreach ($contents as $content)
         <div class="alert alert-info">
             <p>{{$content->name}}</p>
-            <p>{{$content->description}}</p>
+
+            <p id="content_description">{{$content->description}}</p>
+
+            {{--CKEDITOR--}}
+            <script type="text/javascript">
+                CKEDITOR.instances["content_description"].setHtml( '<b>Inner</b> HTML' );
+            </script>
         </div>
         @if ($content->type_of_content == "task")
             <form method="POST" action="{{ route('test_code', ['course_id'=>$content->course_id]) }}">
@@ -31,4 +37,5 @@
 @else
     <p>Преподаватель еще не добавил заданий :(</p>
 @endif
+
 @endsection
