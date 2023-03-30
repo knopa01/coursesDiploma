@@ -5,7 +5,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Создать курс') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('created_course') }}">
                         @csrf
@@ -23,17 +22,19 @@
                         </div>
                         <div class="row mb-3">
                             <label for="language_id" class="col-md-4 col-form-label text-md-end">{{ __('Выберете язык') }}</label>
+                            <div class="col-md-6">
 
-                            <select id="language_id" name="language_id" class="@error('language_id') is-invalid @enderror">
+                                <select id="language_id" name="language_id" class="@error('language_id') is-invalid @enderror">
 
-                                @foreach ($languages as $language)
-                                    <option value={{$language->id}}>{{$language->language_name}}</option>
+                                    @foreach ($languages as $language)
+                                        <option value={{$language->id}}>{{$language->language_name}}</option>
 
-                                @endforeach
-                            </select>
-                            @error('language_id')
-                                    <div class="alert alert-danger"> Пожалуйста, выберите язык</div>
-                            @enderror
+                                    @endforeach
+                                </select>
+                                @error('language_id')
+                                        <div class="alert alert-danger"> Пожалуйста, выберите язык</div>
+                                @enderror
+                            </div>
 
                         </div>
                         <div class="row mb-3">

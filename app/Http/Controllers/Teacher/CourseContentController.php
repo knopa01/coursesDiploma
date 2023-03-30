@@ -166,10 +166,18 @@ class CourseContentController extends Controller
         $data = Test::where('id', '=', $test_id)->get();
         $course_id = request()->course_id;
         if ($data[0]->test_input != $test_input || $data[0]->test_output != $test_output) {
+            /*
             Test::where('id', $test_id)->update(array(
                 'test_input'=>$test_input,
                 'test_output'=>$test_output
             ));
+            */
+            //$test = Test::where('id', $test_id)->get();
+            $test = Test::find($test_id);
+            $test->test_input = $test_input;
+            $test->test_output = $test_output;
+            $test->content_id = $content_id;
+            $test->save();
             $ctrl = "test";
             $message = "Данные успешно обновлены!";
             return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>$content_id]);
@@ -189,6 +197,7 @@ class CourseContentController extends Controller
             'content_sort' => function($attribute, $value, $fail) {
                     $course_id = request()->course_id;
                     $all_content = Content::where('course_id', $course_id)->get();
+
                     foreach($all_content as $i) {
                         if ($i->sort == request()->content_sort && $i->id != request()->content_id) {
                             //dd("Уже было");
@@ -238,11 +247,16 @@ class CourseContentController extends Controller
     }
     public function create_test() {
 
-        $test_input = request()->test_input;
-        $test_output = request()->test_output;
+
         $course_id = request()->course_id;
         $content_id = request()->content_id;
 
+        $test = new Test();
+        $test->test_input = request()->test_input;
+        $test->test_output = request()->test_output;
+        $test->content_id = request()->content_id;
+        $test->save();
+        /*
         DB::table('tests')->insert([
             array(
                 'test_input' => $test_input,
@@ -250,6 +264,7 @@ class CourseContentController extends Controller
                 'content_id'=> $content_id,
             )
         ]);
+        */
         $ctrl = "test";
         $message = "Данные успешно добавлены!";
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>$course_id, 'content_id'=>$content_id]);

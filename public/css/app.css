@@ -1,0 +1,40 @@
+body {
+    background: #1A1F25;
+    color:white;
+}
+.card{
+    background: #1A1F25;
+    border-color: #232c36;
+}
+.btn-login {
+    background: #6A2F85;
+    color: white;
+    font-weight: 500;
+
+}
+.btn-login:hover {
+    background: #3e1d4d;
+    color: white;
+
+}
+.navigationBar {
+    background: #1A1F25;
+}
+.nav-link {
+    color: white
+}
+nav-link {
+    color: white
+}
+.saveMeBtn{
+    background: #364658;
+}
+.loginInputs{
+    background: #364658;
+    color: white;
+    border-color: #364658;
+}
+.loginInputs:active{
+    background: #364658;
+}
+
