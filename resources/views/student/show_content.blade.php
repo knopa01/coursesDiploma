@@ -10,7 +10,18 @@
         <div class="alert alert-info">
             <p>{{$content->name}}</p>
 
-            <p id="content_description">{{$content->description}}</p>
+
+            <div id="editor1" contenteditable="true">
+                <p>The "div" element that contains this text is now editable.</p>
+                <pre id="content_description">{{$content->description}}</pre>
+
+            </div>
+            <script>
+                // Turn off automatic editor creation first.
+                CKEDITOR.disableAutoInline = true;
+                CKEDITOR.inline( 'editor1' );
+            </script>
+
 
             {{--CKEDITOR--}}
             <script type="text/javascript">
@@ -33,7 +44,11 @@
             </form>
         @endif
     @endforeach
+
+
     {{ $contents->links() }}
+
+
 @else
     <p>Преподаватель еще не добавил заданий :(</p>
 @endif

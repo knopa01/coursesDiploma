@@ -26,10 +26,23 @@ class ManageCourseController extends Controller
     }
     public function create_course()
     {
+        $validatedData = request()->validate([
+
+            'course_name' => ['required'],
+            'language_id' => ['required'],
+            'course_description' => ['required']
+        ]);
+        $course = new Courses();
+        $course->user_id = Auth::id();
+        $course->course_name = request()->course_name;
+        $course->course_description = request()->course_description;
+        $course->language_id = request()->language_id;
+        $course->save();
+        /*
         $user_id = Auth::id();
         $course_name = request()->course_name;
         $language_id = request()->language_id;
-
+        //dd($language_id);
         $course_description = request()->course_description;
         DB::table('courses')->insert([
             array(
@@ -39,6 +52,7 @@ class ManageCourseController extends Controller
                 'course_description' => $course_description
             )
         ]);
+        */
         $message = "Данные успешно добавлены!";
         $ctrl = "course";
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);

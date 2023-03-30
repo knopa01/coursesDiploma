@@ -11,33 +11,40 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="course_name" class="col-md-4 col-form-label text-md-end">'Название курса'</label>
+                            <label for="course_name" class="col-md-4 col-form-label text-md-end">Название курса</label>
 
                             <div class="col-md-6">
-                                <input id="course_name" type="text" class="form-control" name="course_name" value="">
+                                <input id="course_name" type="text" class="form-control @error('course_name') is-invalid @enderror" name="course_name" value="" >
+                                @error('course_name')
+                                    <div class="alert alert-danger"> Необходимо заполнить это поле!</div>
+                                @enderror
 
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="language_id" class="col-md-4 col-form-label text-md-end">{{ __('Выберете язык') }}</label>
 
-                            <select id="language_id" name="language_id">
-                                <option selected>Выберите значение</option>
+                            <select id="language_id" name="language_id" class="@error('language_id') is-invalid @enderror">
+
                                 @foreach ($languages as $language)
                                     <option value={{$language->id}}>{{$language->language_name}}</option>
 
                                 @endforeach
-
-
                             </select>
+                            @error('language_id')
+                                    <div class="alert alert-danger"> Пожалуйста, выберите язык</div>
+                            @enderror
 
                         </div>
                         <div class="row mb-3">
                             <label for="course_description" class="col-md-4 col-form-label text-md-end">Описание курса</label>
 
                             <div class="col-md-6">
-                                <textarea rows="4", cols="54" id="course_description" class="form-control" name="course_description"></textarea>
+                                <textarea rows="4", cols="54" id="course_description" class="form-control @error('course_description') is-invalid @enderror" name="course_description"></textarea>
                             </div>
+                            @error('course_description')
+                                    <div class="alert alert-danger"> Это поле необходимо заполнить!</div>
+                            @enderror
                         </div>
 
                         <div class="row mb-0">
@@ -49,6 +56,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

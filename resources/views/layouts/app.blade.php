@@ -17,6 +17,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    @viteReactRefresh
+    @viteReactRefresh
     @vite(['resources/js/app.js'])
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
