@@ -2,6 +2,8 @@
 @section('content')
 
 @if ($data)
+
+
     @foreach ($data as $elem)
         <div class="alert alert-info">
 
@@ -13,6 +15,6 @@
     @endforeach
 @endif
 <div class="btn">
-    <a href={{route('search_course')}}>Добавить курс</a>
+    <a href={{route('search_course')}} class="btn btn-primary">Добавить курс</a>
 </div>
 @endsection

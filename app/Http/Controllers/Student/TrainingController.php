@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\Content;
 use App\Models\User;
+use App\Models\Test;
 class TrainingController extends Controller
 {
     public function course_content() {
@@ -28,7 +29,7 @@ class TrainingController extends Controller
     public function get_result($token) {
         $curl = curl_init();
         curl_setopt_array($curl, [
-            CURLOPT_URL => "http://localhost:2358/submissions/".$token."?base64_encoded=false&fields=*",
+            CURLOPT_URL => "http://localhost:2358/submissions/".$token."?base64_encoded=true&fields=*",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_ENCODING => "",
@@ -40,7 +41,12 @@ class TrainingController extends Controller
         ]);
 
         $response = curl_exec($curl);
-        dd($response);
+        $result = json_decode($response);
+        $output = base64_decode($result->stdout);
+        $expected_output = base64_decode($result->expected_output);
+
+        echo($output);
+        echo($expected_output);
         $err = curl_error($curl);
 
         curl_close($curl);
@@ -48,7 +54,7 @@ class TrainingController extends Controller
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
-            echo $response;
+            //echo $response;
         }
 
 
@@ -68,8 +74,9 @@ class TrainingController extends Controller
         return view('student.result');
         */
     }
-    public function test_code() {
+    public function check_code($input, $output, $code) {
         $curl = curl_init();
+
         curl_setopt_array($curl, [
             CURLOPT_URL => "http://localhost:2358/submissions/?base64_encoded=true&fields=*",
             CURLOPT_RETURNTRANSFER => true,
@@ -81,8 +88,10 @@ class TrainingController extends Controller
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => "{
             \"language_id\": 52,
-            \"source_code\": \"I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=\",
-            \"stdin\": \"SnVkZ2Uw\"
+            \"source_code\": \"$code\",
+            \"stdin\": \"SnVkZ2Uw\",
+            \"expected_output\": \"$output\"
+
         }",
             CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
@@ -92,7 +101,7 @@ class TrainingController extends Controller
 
         $response = curl_exec($curl);
         $result = json_decode($response);
-        sleep(10);
+        sleep(2);
         $this->get_result($result->token);
         $err = curl_error($curl);
 
@@ -103,6 +112,23 @@ class TrainingController extends Controller
         } else {
             echo $response;
         }
+    }
+    public function test_code() {
+        $content_id = request()->content_id;
+        $course_id = request()->course_id;
+        $source_code = request()->source_code;
+        $tests = Test::where('content_id', '=', $content_id)->get();
+        $code_base64 = base64_encode($source_code);
+        //dd($code_base64);
+        if ($tests->count() != 0) {
+            foreach ($tests as $test) {
+                //echo($test->test_input);
+                //echo($test->test_output);
+                TrainingController::check_code(base64_encode($test->test_input), base64_encode($test->test_output), $code_base64);
+            }
+        }
+        //dd($tests);
+
 
 
         //OLDDDDDDDD
@@ -140,6 +166,7 @@ class TrainingController extends Controller
         */
 
     }
+
 
     public function show_content() {
         $course_id = request()->course_id;

@@ -21,11 +21,17 @@ class SelectedCoursesController extends Controller
             $i = 0;
             foreach ($courses as $course) {
                 $course_data = Courses::find($course->course_id);
+                //dd($course_data);
+                $teacher_id = $course_data->user_id;
+                $teacher_name = User::where('id', '=', $teacher_id)->get()[0]->name;
+                //echo($teacher_id);
+                //echo($teacher_name."\n");
                 $data[$i] = [
                     "course_id" =>$course_data->id,
                     "course_name" => $course_data->course_name,
                     "course_description" => $course_data->course_description,
-                    "teacher" =>  User::where('id', '=', $course->user_id)->get()[0]->name
+                    "teacher" =>$teacher_name
+                    //"teacher" =>  User::where('id', '=', $course->user_id)->get()[0]->name
 
                 ];
                 $i++;
@@ -76,10 +82,12 @@ class SelectedCoursesController extends Controller
     public function course_info() {
         $course_id = request()->course_id;
         $course = Courses::where('id', '=', $course_id)->get();
+        //dd($course);
         $data = [
             "course" => $course[0],
             "teacher" =>  User::where('id', '=', $course[0]->user_id)->get()[0]->name
         ];
+        //dd($data);
         return view('student.course_info', compact('data'));
 
     }

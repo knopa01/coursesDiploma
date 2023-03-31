@@ -9,7 +9,7 @@
     @if ($course_content)
         <p>Содержание:</p>
         @foreach ($course_content as $content)
-            <p >{{$content->name}}</p><br>
+            <p >{{$content->content_name}}</p><br>
         @endforeach
         <a href="{{ route('show_content', ['course_id'=>$course_data->id])}}">Начать обучение</a>
     @endif

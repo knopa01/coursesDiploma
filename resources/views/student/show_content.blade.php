@@ -1,24 +1,25 @@
 @extends('layouts.app')
 @section('content')
 @if (count($navbar) != 0 && count($contents) != 0)
+
     <ul>
         @foreach ($navbar as $n)
-            <li><a href="#">{{$n->name}}</a></li>
+            <li><a href="#">{{$n->content_name}}</a></li>
         @endforeach
     </ul>
     @foreach ($contents as $content)
         <div class="alert alert-info">
-            <p>{{$content->name}}</p>
+            <p>{{$content->content_name}}</p>
 
-
-            <div id="editor1" contenteditable="true">
+            {{-- <div id="editor1" contenteditable="true">
                 <p>The "div" element that contains this text is now editable.</p>
                 <pre id="content_description">{{$content->description}}</pre>
 
-            </div>
+            </div>--}}
+           <textarea readonly>{{$content->content_description}}</textarea>
             <script>
                 // Turn off automatic editor creation first.
-                CKEDITOR.disableAutoInline = true;
+                CKEDITOR.disableAutoInline = false;
                 CKEDITOR.inline( 'editor1' );
             </script>
 

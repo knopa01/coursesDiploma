@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Регистрация') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -40,13 +40,15 @@
                         </div>
                         <div class="row mb-3">
                             <label for="usertype" class="col-md-4 col-form-label text-md-end">{{ __('Вы являетесь') }}</label>
+                            <div class="col-md-6">
+                                <select id="usertype" name="usertype">
+                                    <option selected>Выберите значение</option>
+                                    <option value="student">студентом</option>
+                                    <option value="teacher">преподавателем</option>
 
-                            <select id="usertype" name="usertype">
-                                <option selected>Выберите значение</option>
-                                <option value="student">студентом</option>
-                                <option value="teacher">преподавателем</option>
+                                </select>
+                            </div>
 
-                            </select>
 
                         </div>
                         <div class="row mb-3">
