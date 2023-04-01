@@ -34,8 +34,12 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-10">
-                        <textarea id="source_code" class="form-control" name="source_code"></textarea>
+                        <textarea id="source_code" class="form-control" name="source_code">{{old('source_code')}}</textarea>
                     </div>
+                    <div class="form-group col-md-10">
+                        <textarea id="result" class="form-control" name="result">{!! \Session::get('msg') !!}</textarea>
+                    </div>
+
                     <div class="form-group col-md-2">
                         <button type="submit" class="btn btn-primary btn-block">Проверить</button>
                     </div>

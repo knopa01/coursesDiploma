@@ -41,20 +41,27 @@ class TrainingController extends Controller
         ]);
 
         $response = curl_exec($curl);
+
         $result = json_decode($response);
         $output = base64_decode($result->stdout);
+        $compile_output = base64_decode($result->compile_output);
+        //dd($output);
         $expected_output = base64_decode($result->expected_output);
-
-        echo($output);
-        echo($expected_output);
+        //dd($result);
+        //echo($output);
+        //echo($expected_output);
         $err = curl_error($curl);
-
         curl_close($curl);
-
         if ($err) {
-            echo "cURL Error #:" . $err;
+            return("Ошибка #:" . $err);
         } else {
-            //echo $response;
+            $result = [
+                "output" => $output,
+                "expected_output" => $expected_output,
+                "compile_output" => $compile_output
+            ];
+            //dd($result);
+            return($result);
         }
 
 
@@ -76,7 +83,6 @@ class TrainingController extends Controller
     }
     public function check_code($input, $output, $code) {
         $curl = curl_init();
-
         curl_setopt_array($curl, [
             CURLOPT_URL => "http://localhost:2358/submissions/?base64_encoded=true&fields=*",
             CURLOPT_RETURNTRANSFER => true,
@@ -100,17 +106,15 @@ class TrainingController extends Controller
         ]);
 
         $response = curl_exec($curl);
-        $result = json_decode($response);
-        sleep(2);
-        $this->get_result($result->token);
         $err = curl_error($curl);
-
         curl_close($curl);
-
         if ($err) {
-            echo "cURL Error #:" . $err;
+            return("Ошибка #:" . $err);
         } else {
-            echo $response;
+            //echo $response;
+            $result = json_decode($response);
+            sleep(2);
+            return($this->get_result($result->token));
         }
     }
     public function test_code() {
@@ -119,14 +123,48 @@ class TrainingController extends Controller
         $source_code = request()->source_code;
         $tests = Test::where('content_id', '=', $content_id)->get();
         $code_base64 = base64_encode($source_code);
+
+        request()->session()->put('source_code', $source_code);
+        request()->session()->save();
+        //$data = request()->session()->all();
+        //$data = request()->session()->key;
+        //dd($data);
         //dd($code_base64);
+        $done_tests = 0;
         if ($tests->count() != 0) {
             foreach ($tests as $test) {
                 //echo($test->test_input);
                 //echo($test->test_output);
-                TrainingController::check_code(base64_encode($test->test_input), base64_encode($test->test_output), $code_base64);
+                $result = TrainingController::check_code(base64_encode($test->test_input), base64_encode($test->test_output), $code_base64);
+                if (is_string($result) && str_contains($result, "Ошибка")) {
+                    return redirect()->back()->withErrors(['msg' => "Ошибка"])->withInput();
+                }
+                else {
+                    if ($result["compile_output"] != null){
+                        return redirect()->back()->with('msg', $result["compile_output"])->withInput();
+                    } else {
+                        if($result["output"] != $result["expected_output"]) {
+                            return redirect()->back()->with('msg', "Ожидаемый результат: ".$result["expected_output"]."\n"."Ваш результат: ".$result["output"] )->withInput();
+                        } else {
+                            return redirect()->back()->with('msg', 'Задание выполнено верно!')->withInput();
+                        }
+                    }
+
+
+
+                }
+                //dd($result);
             }
         }
+
+        //return view('student.show_content', compact('contents', 'navbar' , 'result'));
+        /*
+        $redirect = isset($_SERVER['HTTP_REFERER'])? $_SERVER['HTTP_REFERER']:'show_content.blade.html';
+        header("Location: $redirect");
+        exit();
+        */
+
+
         //dd($tests);
 
 
@@ -172,8 +210,9 @@ class TrainingController extends Controller
         $course_id = request()->course_id;
         $contents = Content::where('course_id', '=', $course_id)->paginate(1);
         $navbar = Content::where('course_id', '=', $course_id)->get();
+        $result = null;
         //dd($contents);
-        return view('student.show_content', compact('contents', 'navbar'));
+        return view('student.show_content', compact('contents', 'navbar' , 'result'));
         /*
         if ($content->type_of_content == "task") {
             return view('student.show_task', compact('course_name', 'content', 'contents'));
