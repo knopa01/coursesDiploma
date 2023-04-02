@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\User;
 use App\Models\Language;
+use Illuminate\Validation\Rule;
+
 class ManageCourseController extends Controller
 {
     /**
@@ -28,10 +30,16 @@ class ManageCourseController extends Controller
     {
         $validatedData = request()->validate([
 
-            'course_name' => ['required'],
+            'course_name' => ['required', 'unique:courses,course_name'],
             'language_id' => ['required'],
             'course_description' => ['required']
+        ],[
+            'course_name.required' => 'Это поле обязательно для заполенения!',
+            'course_name.unique:courses,course_name' => 'Курс с данным имененем уже существует!',
         ]);
+
+
+
         $course = new Courses();
         $course->user_id = Auth::id();
         $course->course_name = request()->course_name;

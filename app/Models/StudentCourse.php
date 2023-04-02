@@ -16,4 +16,8 @@ class StudentCourse extends Model
     {
         return $this->belongsTo(Courses::class, 'course_id', 'id');
     }
+    public function student_course_tasks()
+    {
+        return $this->hasMany(StudentCourseTask::class, 'student_course_id', 'id');
+    }
 }

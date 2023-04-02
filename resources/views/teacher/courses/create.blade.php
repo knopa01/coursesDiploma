@@ -18,6 +18,7 @@
                                     <div class="alert alert-danger"> Необходимо заполнить это поле!</div>
                                 @enderror
 
+
                             </div>
                         </div>
                         <div class="row mb-3">

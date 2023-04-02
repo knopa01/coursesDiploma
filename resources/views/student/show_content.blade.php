@@ -41,8 +41,21 @@
                     </div>
 
                     <div class="form-group col-md-2">
-                        <button type="submit" class="btn btn-primary btn-block">Проверить</button>
+                        <button id="submit" type="submit" class="btn btn-primary btn-block">Проверить</button>
                     </div>
+
+                    <script>
+                        var input = document.getElementById("result").value;
+                        //alert(input);
+                        if (input == "Задание выполнено верно!") {
+                            document.getElementById("submit").disabled = true;
+                        }
+
+                    </script>
+
+
+
+
                 </div>
                 <input id="content_id" type="hidden" class="form-control" name="content_id" value={{$content->id}}>
                 <input id="course_id" type="hidden" class="form-control" name="course_id" value={{$content->course_id}}>

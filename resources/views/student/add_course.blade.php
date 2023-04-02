@@ -11,4 +11,9 @@
     </div>
 
 </form>
+@if($message != null)
+<script>
+    alert("Вы уже изучаете данный курс!");
+</script>
+@endif
 @endsection

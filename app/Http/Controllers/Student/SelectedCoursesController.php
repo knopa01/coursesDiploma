@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Courses;
+use App\Models\StudentCourse;
 
 class SelectedCoursesController extends Controller
 {
@@ -42,8 +43,8 @@ class SelectedCoursesController extends Controller
     }
     public function search_course()
     {
-        $data = null;
-        return view('student.add_course');
+        $message = null;
+        return view('student.add_course', compact($message));
     }
     public function find_course(Request $request)
     {
@@ -68,15 +69,35 @@ class SelectedCoursesController extends Controller
         $user_id = Auth::id();
         $user = User::find($user_id);
         $course_id = request()->course_id;
+
+        $find_course = StudentCourse::where([
+            ['user_id', '=', $user_id],
+            ['course_id', '=', $course_id]
+        ])->get();
+        if($find_course->count() == 0) {
+            $course = new StudentCourse();
+            $course->user_id = $user_id;
+            $course->course_id = $course_id;
+            $course->save();
+            $data = $user->student_courses;
+            return redirect(route('home'));
+        } else {
+            $message = "Вы уже изучаете данный курс";
+            return view('student.add_course', compact('message'));
+            //return redirect(route('search_course'));
+        }
+        //dd($find_course);
         //dd($course_id);
+
+        /*
         DB::table('student_courses')->insert([
             array(
                 'user_id' => $user_id,
                 'course_id' => $course_id,
             )
         ]);
-        $data = $user->student_courses;
-        return redirect(route('home'));
+        */
+
     }
 
     public function course_info() {

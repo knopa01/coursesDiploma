@@ -10,6 +10,9 @@ use App\Models\Courses;
 use App\Models\Content;
 use App\Models\User;
 use App\Models\Test;
+use App\Models\StudentCourse;
+use App\Models\StudentCourseTask;
+use DateTime;
 class TrainingController extends Controller
 {
     public function course_content() {
@@ -95,7 +98,7 @@ class TrainingController extends Controller
             CURLOPT_POSTFIELDS => "{
             \"language_id\": 52,
             \"source_code\": \"$code\",
-            \"stdin\": \"SnVkZ2Uw\",
+            \"stdin\": \"$input\",
             \"expected_output\": \"$output\"
 
         }",
@@ -122,6 +125,7 @@ class TrainingController extends Controller
         $course_id = request()->course_id;
         $source_code = request()->source_code;
         $tests = Test::where('content_id', '=', $content_id)->get();
+        //dd($tests);
         $code_base64 = base64_encode($source_code);
 
         request()->session()->put('source_code', $source_code);
@@ -131,6 +135,7 @@ class TrainingController extends Controller
         //dd($data);
         //dd($code_base64);
         $done_tests = 0;
+        $mistakes = 1;
         if ($tests->count() != 0) {
             foreach ($tests as $test) {
                 //echo($test->test_input);
@@ -138,22 +143,52 @@ class TrainingController extends Controller
                 $result = TrainingController::check_code(base64_encode($test->test_input), base64_encode($test->test_output), $code_base64);
                 if (is_string($result) && str_contains($result, "Ошибка")) {
                     return redirect()->back()->withErrors(['msg' => "Ошибка"])->withInput();
+                    break;
                 }
                 else {
                     if ($result["compile_output"] != null){
                         return redirect()->back()->with('msg', $result["compile_output"])->withInput();
+                        break;
                     } else {
                         if($result["output"] != $result["expected_output"]) {
                             return redirect()->back()->with('msg', "Ожидаемый результат: ".$result["expected_output"]."\n"."Ваш результат: ".$result["output"] )->withInput();
+                            break;
                         } else {
-                            return redirect()->back()->with('msg', 'Задание выполнено верно!')->withInput();
+
+                            $mistakes = 0;
                         }
                     }
-
-
-
                 }
                 //dd($result);
+            }
+            if ($mistakes == 0) {
+                $user_id = Auth::id();
+                $student_course_id = StudentCourse::where([
+                    ['user_id', '=', $user_id],
+                    ['course_id', '=', $course_id]
+                ])->get()[0]->id;
+                //dd($student_course_id);
+                //$datetime = date('d.m.Y H:i:s');
+                $datetime= new DateTime();
+                $task = new StudentCourseTask();
+                $task->student_course_id = $student_course_id;
+                $task->content_id  = $content_id;
+                $task->done_date  = $datetime;
+                $task->save();
+
+                $done_tasks_count = count(StudentCourseTask::where([
+                    ['student_course_id', '=', $student_course_id]
+                ])->get());
+
+                $tasks_count = count(Content::where('course_id', '=', $course_id)->get());
+
+                if ($done_tasks_count == $tasks_count) {
+                    $student_course = StudentCourse::find($student_course_id);
+                    $student_course->done_date  = $datetime;
+                    $student_course->save();
+
+                }
+                return redirect()->back()->with('msg', 'Задание выполнено верно!')->withInput();
             }
         }
 
