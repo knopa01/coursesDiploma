@@ -9,6 +9,7 @@ use App\Http\Controllers\Teacher\ManageCourseController;
 use App\Http\Controllers\Teacher\CourseContentController;
 use App\Http\Controllers\Student\SelectedCoursesController;
 use App\Http\Controllers\Student\TrainingController;
+use App\Http\Controllers\Teacher\StudyResultsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Auth::routes();
 
 Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
 //teacher
+
 //course
 Route::get('/home/create-course', [ManageCourseController::class, 'show_form'])->middleware(['auth'])->name('create_course');
 Route::post('/home/create-course/submit', [ManageCourseController::class, 'create_course'])->middleware(['auth'])->name('created_course');
@@ -50,6 +52,14 @@ Route::post('/home/course-{course_id}/content{content_id}/submit', [CourseConten
 Route::get('/home/course{course_id}/content{content_id}/test{test_id}', [CourseContentController::class, 'show_test'])->middleware(['auth'])->name('manage_test');
 Route::post('/home/edit-test/submit', [CourseContentController::class, 'edit_test'])->middleware(['auth'])->name('edit_test');
 Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])->middleware(['auth'])->name('delete_test');
+
+//study results
+Route::get('/study-results', [StudyResultsController::class, 'index'])->middleware(['auth'])->name('study_results');
+Route::get('/study-results/show', [StudyResultsController::class, 'show_results'])->middleware(['auth'])->name('show_study_results');
+
+
+
+
 //student
 Route::get('/home/search', [SelectedCoursesController::class, 'search_course'])->middleware(['auth'])->name('search_course');
 Route::get('/home/searched', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');

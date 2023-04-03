@@ -19,5 +19,6 @@ class StudentCourse extends Model
     public function student_course_tasks()
     {
         return $this->hasMany(StudentCourseTask::class, 'student_course_id', 'id');
+        //return $this->hasMany(StudentCourseTask::class);
     }
 }
