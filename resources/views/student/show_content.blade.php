@@ -7,15 +7,20 @@
             <li><a href="#">{{$n->content_name}}</a></li>
         @endforeach
     </ul>
+
+
+
+
+
+
+    @php
+        $i = 0;
+        $current_task_done = false;
+    @endphp
     @foreach ($contents as $content)
         <div class="alert alert-info">
             <p>{{$content->content_name}}</p>
 
-            {{-- <div id="editor1" contenteditable="true">
-                <p>The "div" element that contains this text is now editable.</p>
-                <pre id="content_description">{{$content->description}}</pre>
-
-            </div>--}}
            <textarea readonly>{{$content->content_description}}</textarea>
             <script>
                 // Turn off automatic editor creation first.
@@ -30,41 +35,72 @@
             </script>
         </div>
         @if ($content->type_of_content == "task")
-            <form method="POST" action="{{ route('test_code', ['course_id'=>$content->course_id]) }}">
-                @csrf
-                <div class="form-row">
-                    <div class="form-group col-md-10">
-                        <textarea id="source_code" class="form-control" name="source_code">{{old('source_code')}}</textarea>
-                    </div>
-                    <div class="form-group col-md-10">
-                        <textarea id="result" class="form-control" name="result">{!! \Session::get('msg') !!}</textarea>
-                    </div>
+            @php
+            //dd($student_tasks);
+            //echo($student_tasks);
+                foreach($student_tasks as $student_task)
 
-                    <div class="form-group col-md-2">
-                        <button id="submit" type="submit" class="btn btn-primary btn-block">Проверить</button>
-                    </div>
+                    if ($student_task->content_id == $content->id) {
 
-                    <script>
-                        var input = document.getElementById("result").value;
-                        //alert(input);
-                        if (input == "Задание выполнено верно!") {
-                            document.getElementById("submit").disabled = true;
+                        if ($student_task->done_date != null) {
+                            $current_task_done = true;
                         }
-
-                    </script>
-
-
+                    }
+            @endphp
 
 
-                </div>
-                <input id="content_id" type="hidden" class="form-control" name="content_id" value={{$content->id}}>
-                <input id="course_id" type="hidden" class="form-control" name="course_id" value={{$content->course_id}}>
-            </form>
+            @if($current_task_done == false)
+                <form method="POST" action="{{ route('test_code', ['course_id'=>$content->course_id]) }}">
+                    @csrf
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <textarea id="source_code" class="form-control" name="source_code">{{old('source_code')}}</textarea>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <textarea id="result" class="form-control" name="result">{!! \Session::get('msg') !!}</textarea>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <button id="submit" type="submit" class="btn btn-primary btn-block">Проверить</button>
+                        </div>
+
+                        <script>
+                            var input = document.getElementById("result").value;
+                            //alert(input);
+                            if (input == "Задание выполнено верно!") {
+                                document.getElementById("submit").disabled = true;
+                            }
+
+                        </script>
+
+
+
+
+                    </div>
+                    <input id="content_id" type="hidden" class="form-control" name="content_id" value={{$content->id}}>
+                    <input id="course_id" type="hidden" class="form-control" name="course_id" value={{$content->course_id}}>
+                </form>
+
+            @else
+
+                <h1>Задача решена!</h1>
+
+            @endif
+
+
         @endif
+
     @endforeach
+    @php
+        $i = 0;
+        $current_task_done = false;
+    @endphp
+
+    {{ $contents->appends(request()->except('page'))->links() }}
 
 
-    {{ $contents->links() }}
+
+
 
 
 @else

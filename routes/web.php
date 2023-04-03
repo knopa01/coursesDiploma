@@ -58,6 +58,7 @@ Route::post('/home/add-course', [SelectedCoursesController::class, 'add_course']
 Route::get('/home/{course_id}', [TrainingController::class, 'course_content'])->middleware(['auth'])->name('course_content');
 Route::post('/home/{course_id}/test', [TrainingController::class, 'test_code'])->middleware(['auth'])->name('test_code');
 Route::get('/home/{course_id}/studying', [TrainingController::class, 'show_content'])->middleware(['auth'])->name('show_content');
+Route::get('/home/delete-student-course', [SelectedCoursesController::class, 'delete_student_course'])->middleware(['auth'])->name('delete_student_course');
 
 
 

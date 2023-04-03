@@ -17,7 +17,8 @@ class TrainingController extends Controller
 {
     public function course_content() {
         $course_id = request()->course_id;
-
+        $student_course_id = request()->student_course_id;
+        //dd($student_course_id);
         $course_data = Courses::find($course_id);
         //dd($course_data);
         $course_content = null;
@@ -26,7 +27,7 @@ class TrainingController extends Controller
         $teacher = User::find($teacher)->name;
         $course_content = $course_data->contents->sortBy('sort');
         //dd($teacher, $course_content, $course_data);
-        return view('student.course_content', compact('course_data', 'teacher', 'course_content'));
+        return view('student.course_content', compact('course_data', 'teacher', 'course_content', 'student_course_id'));
 
     }
     public function get_result($token) {
@@ -243,11 +244,30 @@ class TrainingController extends Controller
 
     public function show_content() {
         $course_id = request()->course_id;
-        $contents = Content::where('course_id', '=', $course_id)->paginate(1);
+        $student_course_id = request()->student_course_id;
+
+        //dd($student_course_id);
+        $contents = Content::where('course_id', '=', $course_id);
+        //$contents->appends($student_course_id);
+        $contents = $contents->paginate(1);
+        $student_tasks = StudentCourseTask::where('student_course_id', '=', $student_course_id)->get();
+
+        //dd($student_tasks);
+        //dd($contents);
+        /*
+        $student_task_data = StudentCourseTask::where([
+            ['student_course_id', '=', $student_course_id],
+            ['content_id', '=', $contents[0]->id]
+        ])->get();
+        $student_task = $student_task_data[0];
+        */
+
         $navbar = Content::where('course_id', '=', $course_id)->get();
         $result = null;
-        //dd($contents);
-        return view('student.show_content', compact('contents', 'navbar' , 'result'));
+
+
+        //dd($navbar);
+        return view('student.show_content', compact('contents', 'navbar' , 'result', 'student_tasks'));
         /*
         if ($content->type_of_content == "task") {
             return view('student.show_task', compact('course_name', 'content', 'contents'));

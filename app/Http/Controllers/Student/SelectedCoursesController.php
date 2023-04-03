@@ -23,11 +23,13 @@ class SelectedCoursesController extends Controller
             foreach ($courses as $course) {
                 $course_data = Courses::find($course->course_id);
                 //dd($course_data);
+                $student_course_id = $course->id;
                 $teacher_id = $course_data->user_id;
                 $teacher_name = User::where('id', '=', $teacher_id)->get()[0]->name;
                 //echo($teacher_id);
                 //echo($teacher_name."\n");
                 $data[$i] = [
+                    "student_course_id" =>$student_course_id,
                     "course_id" =>$course_data->id,
                     "course_name" => $course_data->course_name,
                     "course_description" => $course_data->course_description,
@@ -44,7 +46,7 @@ class SelectedCoursesController extends Controller
     public function search_course()
     {
         $message = null;
-        return view('student.add_course', compact($message));
+        return view('student.add_course', compact('message'));
     }
     public function find_course(Request $request)
     {
@@ -111,6 +113,16 @@ class SelectedCoursesController extends Controller
         //dd($data);
         return view('student.course_info', compact('data'));
 
+    }
+    public function delete_student_course() {
+        $student_course_id = request()->student_course_id;
+        //dd($course_id);
+        $student_course_id = StudentCourse::find($student_course_id);
+        //dd($student_course_id);
+        $student_course_id->delete();
+        $message = "Курс удален";
+        $ctrl = "course";
+        return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);
     }
 
 }
