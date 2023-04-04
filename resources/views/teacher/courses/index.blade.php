@@ -6,22 +6,24 @@
             <div class="row mb-3">
                 @if (count($data) != 0)
                     @foreach ($data as $elem)
-                        <div class="alert alert-info">
-                            <a href="{{ route('manage_course', ['course_id'=>$elem->id]) }}">
-                                <h3>Название: {{ $elem->course_name }}</h3>
-                                <h3>Описание: {{ $elem->course_description }}</h3>
+                        <div class="alert loginInputs">
+                            <a href="{{ route('manage_course', ['course_id'=>$elem->id]) }}" class="loginInputs">
+                                <h3 >Название: {{ $elem->course_name }}</h3>
+                                <h3 >Описание: {{ $elem->course_description }}</h3>
                             </a>
                         </div>
                     @endforeach
+
                 @else
                     <h3>Вы еще не создали курс </h3>
                 @endif
+
             </div>
         </div>
     </div>
+    <a href={{route('create_course')}} class="btn btn-login mb-0">Создать курс</a>
+
 </div>
 
-<div class="btn">
-    <a href={{route('create_course')}} class="btn btn-primary">Создать курс</a>
-</div>
+
 @endsection

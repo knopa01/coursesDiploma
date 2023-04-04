@@ -36,7 +36,7 @@ class StudyResultsController extends Controller
                 }
             }
         }
-        //current !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //current !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! мб объединит с  done
 
         $courses_in_progress = StudentCourse::where([
             ["course_id", "=",  $course_id],
