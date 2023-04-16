@@ -56,7 +56,7 @@ Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])
 //study results
 Route::get('/study-results', [StudyResultsController::class, 'index'])->middleware(['auth'])->name('study_results');
 Route::get('/study-results/show', [StudyResultsController::class, 'show_results'])->middleware(['auth'])->name('show_study_results');
-
+Route::post('/study-results/show/student', [StudyResultsController::class, 'find_student'])->middleware(['auth'])->name('find_student');
 
 
 
