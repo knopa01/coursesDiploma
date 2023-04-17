@@ -10,6 +10,7 @@ use App\Http\Controllers\Teacher\CourseContentController;
 use App\Http\Controllers\Student\SelectedCoursesController;
 use App\Http\Controllers\Student\TrainingController;
 use App\Http\Controllers\Teacher\StudyResultsController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::get('/', function () {
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//admin
+Route::get('/admin', [AdminController::class, 'index'])->middleware('auth')->name('admin');
 
 
 Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
@@ -70,7 +73,6 @@ Route::get('/home/{course_id}', [TrainingController::class, 'course_content'])->
 Route::post('/home/{course_id}/test', [TrainingController::class, 'test_code'])->middleware(['auth'])->name('test_code');
 Route::get('/home/{course_id}/studying', [TrainingController::class, 'show_content'])->middleware(['auth'])->name('show_content');
 Route::get('/home/delete-student-course', [SelectedCoursesController::class, 'delete_student_course'])->middleware(['auth'])->name('delete_student_course');
-
 
 
 

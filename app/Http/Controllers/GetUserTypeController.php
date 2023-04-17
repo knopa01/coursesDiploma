@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Teacher\ManageCourseController;
 use App\Http\Controllers\Student\SelectedCoursesController;
-
+use App\Http\Controllers\Admin\AdminController;
 class GetUserTypeController extends Controller
 {
     /**
@@ -27,6 +27,11 @@ class GetUserTypeController extends Controller
         else if ($user == 'student') {
             $result = (new SelectedCoursesController)->index();
             return $result;
+        }
+        else if($user == 'admin') {
+            return redirect()->route('admin');
+            //$result = (new AdminController)->index();
+            //return $result;
         }
         //$usertype = $user['usertype'];
     }

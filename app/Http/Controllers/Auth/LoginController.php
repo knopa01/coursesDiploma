@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /*
@@ -25,8 +25,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //public $id = DB::table('users')->where('email', '=', "%{$email}%")->get();
+
+
     protected $redirectTo = RouteServiceProvider::HOME;
+
 
     /**
      * Create a new controller instance.
@@ -35,6 +37,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        $id = Auth::id();
+        $user = DB::table('users')->select('usertype')->where('id', '=', $id)->value('usertype');
+        if($user == 'admin') {
+
+        }
         $this->middleware('guest')->except('logout');
     }
 }
