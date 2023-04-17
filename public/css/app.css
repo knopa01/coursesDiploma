@@ -41,8 +41,11 @@ nav-link {
     border-color: #364658;
     text-decoration: none
 }
-.loginInputs:active{
+.loginInputs:focus{
     background: #364658;
+    color: white;
+    border-color: #364658;
+    box-shadow: 2px 2px 3px 0 #6e91bb;
 }
 .logo{
     width: 40px;

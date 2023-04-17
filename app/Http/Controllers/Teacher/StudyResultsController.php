@@ -102,25 +102,24 @@ class StudyResultsController extends Controller
     public function find_student(Request $request)
     {
         $name = $request->name;
+        $user_name = "";
         $course_id = $request->course_id;
-        $user = User::where('name', 'LIKE', "%{$name}%")->get()[0];
-
-        //dd($user);
-        $done = [];
+        $user = [];
         $in_progress = [];
-
+        $msg = null;
         if($name != null) {
-            $student_course = StudentCourse::where([
-                ["course_id", "=", $course_id],
-                ["user_id", "=", $user->id]
-            ])->get()[0];
-            if ($student_course == null) {
-                echo("Данный пользователь не изучает курс");
-            } else {
-                if ($student_course->done_date != null) {
-
-                    array_push($done,["course"=>$student_course, "student"=>$user]);
+            $user = User::where('name', 'LIKE', "%{$name}%")->get();
+            if(count($user) != 0) {
+                $user = $user[0];
+                $user_name = $user->name;
+                $student_course = StudentCourse::where([
+                    ["course_id", "=", $course_id],
+                    ["user_id", "=", $user->id]
+                ])->get();
+                if (count($student_course) == 0) {
+                    $msg = "Данный пользователь не изучает курс";
                 } else {
+                    $student_course = $student_course[0];
                     $task_arr = [];
                     $tasks_in_progress = [];
                     array_push(
@@ -131,26 +130,29 @@ class StudyResultsController extends Controller
                             ])->get());
                     foreach($tasks_in_progress as $tasks) {
                         foreach($tasks as $task) {
-                            $name = Content::where("id", "=", $task->content_id)->get()[0]->content_name;
-                            array_push($task_arr, ["task_info"=>$task, "task_name"=>$name]);
+                            $task_name = Content::where("id", "=", $task->content_id)->get()[0]->content_name;
+                            array_push($task_arr, ["task_info"=>$task, "task_name"=>$task_name]);
                         }
                     }
+
                     array_push($in_progress,["student"=>$user, "course"=>$student_course, "tasks"=>$task_arr]);
-
                 }
-                echo("aboba");
-                //return view("teacher.results.aboba");
 
-                //изменить редирект
-                return redirect()->route('show_study_results', ['done' => $done, 'in_progress' => $in_progress, 'course_id' => $course_id]);
-                //return redirect()->back()->with(['done','in_progress', 'course_id'], $done, $in_progress, $course_id)->withInput();
+            } else {
+                $msg = "Пользователь не найден!";
 
             }
         } else {
-            echo("Пользователь не найден");
+            $msg = "Введите имя студенета!";
         }
+
         //return redirect()->back()->with('msg', 'Задание выполнено верно!')->withInput();
+        return view("teacher.results.show_student", ['in_progress' => $in_progress, 'course_id' => $course_id, 'msg' => $msg, 'name' =>$user_name]);
 
+    }
+    public function show_student($done, $in_progress, $course_id, $msg, $name) {
 
+        //$done, $in_progress, $course_id, $msg, $name
+        return view("teacher.results.show_student", ['done' => $done, 'in_progress' => $in_progress, 'course_id' => $course_id, 'msg' => $msg, 'name' =>$name]);
     }
 }
