@@ -32,7 +32,8 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //admin
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth')->name('admin');
-
+Route::match(['get', 'post'],'/admin/groups', [AdminController::class, 'show_groups'])->middleware('auth')->name('admin_groups');
+Route::match(['get', 'post'],'/admin/groups/edit', [AdminController::class, 'edit_form'])->middleware('auth')->name('edit_form');
 
 Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
 //teacher

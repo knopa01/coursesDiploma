@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <a href={{route('create_course')}} class="btn btn-login mb-0">Создать курс</a>
+    <a href="{{route('create_course')}}" class="btn btn-login mb-0">Создать курс</a>
 
 </div>
 
