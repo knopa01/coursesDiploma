@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Group;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -47,6 +48,19 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    public function register_form()
+    {
+        $groups = Group::all();
+        /*
+        if(count($groups) != 0) {
+            dd($groups);
+        } else {
+            dd("групп нет");
+        }
+        */
+
+        return view('auth.register', compact('groups'));
+    }
     protected function validator(array $data)
     {
 
@@ -54,6 +68,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'usertype' => ['required', 'string','max:10'],
+
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -70,6 +85,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'usertype' => $data['usertype'],
+            'user_group' => $data['user_group'],
             'password' => Hash::make($data['password']),
         ]);
     }

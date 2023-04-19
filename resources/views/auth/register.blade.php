@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Регистрация') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('myregister') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -48,6 +48,40 @@
 
                                 </select>
                             </div>
+                            <div class="row mb-3">
+                                <label for="usergroup" class="col-md-4 col-form-label text-md-end">{{ __('Ваша группа:') }}</label>
+                                <div class="col-md-6">
+
+                                    <select id="usergroup" name="usergroup" class="loginInputs">
+                                        <option selected>Выберите значение</option>
+                                        @foreach($groups as $group)
+
+
+                                            <option value="{{$group->id}}">{{$group->group_name}}</option>
+
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <script>
+
+
+                                document.getElementById('usertype').addEventListener('change', function() {
+                                    const n = this.value;
+                                    var htmlText = `<div>lol</div>`
+                                    if(n == "student"){
+                                        alert(n)
+                                        document.write(htmlText)
+
+                                    }
+
+                                })
+
+
+
+
+                            </script>
 
 
                         </div>

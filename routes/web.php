@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GetUserTypeController;
 use App\Http\Controllers\Teacher\ManageCourseController;
 use App\Http\Controllers\Teacher\CourseContentController;
@@ -28,12 +29,19 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//register
+Route::get('/register', [RegisterController::class, 'register_form'])->name('register_form');
+Route::post('/register/submit', [RegisterController::class, 'register'])->name('myregister');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //admin
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth')->name('admin');
 Route::match(['get', 'post'],'/admin/groups', [AdminController::class, 'show_groups'])->middleware('auth')->name('admin_groups');
 Route::match(['get', 'post'],'/admin/groups/edit', [AdminController::class, 'edit_form'])->middleware('auth')->name('edit_form');
+Route::post('/admin/groups/update', [AdminController::class, 'edit_group'])->middleware('auth')->name('edit_group');
+Route::get('/admin/groups/delete', [AdminController::class, 'delete_group'])->middleware(['auth'])->name('delete_group');
+Route::get('/admin/groups/create', [AdminController::class, 'create_form'])->middleware(['auth'])->name('create_form');
+Route::post('/admin/groups/save', [AdminController::class, 'create_group'])->middleware(['auth'])->name('create_group');
 
 Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
 //teacher

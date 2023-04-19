@@ -28,17 +28,16 @@ class ManageCourseController extends Controller
     }
     public function create_course()
     {
-        $validatedData = request()->validate([
+        $validator = request()->validate([
 
             'course_name' => ['required', 'unique:courses,course_name'],
             'language_id' => ['required'],
             'course_description' => ['required']
         ],[
             'course_name.required' => 'Это поле обязательно для заполенения!',
-            'course_name.unique:courses,course_name' => 'Курс с данным имененем уже существует!',
+            'course_name.unique' => 'Курс с данным имененем уже существует!',
+            'course_description.required' => 'Это поле обязательно для заполенения!',
         ]);
-
-
 
         $course = new Courses();
         $course->user_id = Auth::id();
@@ -64,6 +63,12 @@ class ManageCourseController extends Controller
         $message = "Данные успешно добавлены!";
         $ctrl = "course";
         return view("teacher.courses.done", ['message'=>$message,'ctrl'=>$ctrl, 'course_id'=>null, 'content_id'=>null]);
+
+
+
+
+
+
     }
 
     public function delete_course() {

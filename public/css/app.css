@@ -23,6 +23,16 @@ body {
     color: white;
 
 }
+.btn-save {
+    background: #8FB92A;
+    color: white;
+    font-weight: 500;
+
+}
+.btn-save:hover {
+    background: #5B7718;
+    color: white;
+}
 .navigationBar {
     background: #1A1F25;
 }
@@ -53,4 +63,7 @@ nav-link {
 }
 .table-text{
     color: white;
+}
+.btnAdmin{
+    width: 100px;
 }

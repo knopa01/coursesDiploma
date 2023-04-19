@@ -13,11 +13,24 @@
                             <label for="course_name" class="col-md-4 col-form-label text-md-end">Название курса</label>
 
                             <div class="col-md-6">
-                                <input id="course_name" type="text" class=" loginInputs form-control @error('course_name') is-invalid @enderror" name="course_name" value="" >
+                                <input id="course_name" type="text" class=" loginInputs form-control @error('course_name') is-invalid @enderror" name="course_name" value="{{old('course_name')}}" >
+
                                 @error('course_name')
-                                    <div class="alert alert-danger"> Необходимо заполнить это поле!</div>
+                                    <div class="alert alert-danger"> {{$message}}</div>
                                 @enderror
 
+                                {{--
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+
+                                            @foreach ($errors->all() as $error)
+                                                {{ $error }}
+                                                @break
+                                            @endforeach
+
+                                    </div>
+                                @endif
+                                --}}
 
                             </div>
                         </div>
@@ -32,9 +45,12 @@
 
                                     @endforeach
                                 </select>
+
                                 @error('language_id')
                                         <div class="alert alert-danger"> Пожалуйста, выберите язык</div>
                                 @enderror
+
+
                             </div>
 
                         </div>
@@ -42,11 +58,15 @@
                             <label for="course_description" class="col-md-4 col-form-label text-md-end">Описание курса</label>
 
                             <div class="col-md-6">
-                                <textarea rows="4", cols="54" id="course_description" class="loginInputs form-control @error('course_description') is-invalid @enderror" name="course_description"></textarea>
+                                <textarea rows="4", cols="54" id="course_description" class="loginInputs form-control @error('course_description') is-invalid @enderror" name="course_description">{{old('course_description')}}</textarea>
+                                @error('course_description')
+                                <div class="alert alert-danger"> {{$message}}</div>
+                                @enderror
                             </div>
-                            @error('course_description')
-                                    <div class="alert alert-danger"> Это поле необходимо заполнить!</div>
-                            @enderror
+
+
+
+
                         </div>
 
                         <div class="row mb-0">
