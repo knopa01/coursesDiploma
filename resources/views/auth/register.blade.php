@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-3" >
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                             <div class="col-md-6">
@@ -38,22 +38,34 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-3" >
                             <label for="usertype" class="col-md-4 col-form-label text-md-end">{{ __('Вы являетесь') }}</label>
                             <div class="col-md-6">
                                 <select id="usertype" name="usertype" class="loginInputs">
-                                    <option selected>Выберите значение</option>
+                                    @php
+                                        //тут надо менять
+                                            $show = "";
+                                            if(old('usertype') == "student") {
+                                                $show = "студентом";
+                                            } else if(old('usertype') == "teacher") {
+                                                $show = "преподавателем";
+                                            } else {
+                                                $show = "Выберете значение";
+                                            }
+                                    @endphp
+                                    <option selected>{{$show}}</option>
                                     <option value="student">студентом</option>
                                     <option value="teacher">преподавателем</option>
 
                                 </select>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-3" id="userGroup">
                                 <label for="usergroup" class="col-md-4 col-form-label text-md-end">{{ __('Ваша группа:') }}</label>
                                 <div class="col-md-6">
 
-                                    <select id="usergroup" name="usergroup" class="loginInputs">
+                                    <select id="usergroup" name="usergroup" class="loginInputs @error('usergroup') is-invalid @enderror" >
                                         <option selected>Выберите значение</option>
+                                        <option selected>{{old('usergroup')}}</option>
                                         @foreach($groups as $group)
 
 
@@ -62,21 +74,31 @@
                                         @endforeach
 
                                     </select>
+                                    @error('usergroup')
+                                    <div class="alert alert-danger"> Выберете группу!</div>
+                                    @enderror
                                 </div>
                             </div>
                             <script>
-
-
+                                document.getElementById("userGroup").hidden = true;
+                                alert(document.getElementById('usertype').value == "student")
+                                if(document.getElementById('usertype').value == "student") {
+                                    document.getElementById("userGroup").hidden = false;
+                                } else {
+                                    document.getElementById("userGroup").hidden = true;
+                                }
+                                /*
                                 document.getElementById('usertype').addEventListener('change', function() {
                                     const n = this.value;
-                                    var htmlText = `<div>lol</div>`
-                                    if(n == "student"){
-                                        alert(n)
-                                        document.write(htmlText)
+                                    //console.log(n)
 
+                                    if(n == "student"){
+                                        document.getElementById("userGroup").hidden = false;
+                                    } else {
+                                        document.getElementById("userGroup").hidden = true;
                                     }
 
-                                })
+                                }) */
 
 
 

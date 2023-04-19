@@ -68,7 +68,20 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'usertype' => ['required', 'string','max:10'],
+            'usergroup' => function($attribute, $value, $fail) {
+                //dd(request()->usergroup);
 
+                if(request()->usertype == "student") {
+                    if(request()->usergroup == "Выберите значение") {
+
+
+                        $fail('Выберете группу!');
+                    }
+
+                }
+
+
+            },
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -86,6 +99,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'usertype' => $data['usertype'],
             'user_group' => $data['user_group'],
+
             'password' => Hash::make($data['password']),
         ]);
     }
