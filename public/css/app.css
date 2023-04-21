@@ -33,6 +33,15 @@ body {
     background: #5B7718;
     color: white;
 }
+.btn-back {
+    background: #0D6EFD;
+    color: white;
+    font-weight: 500;
+}
+.btn-back:hover {
+    background: #095DDA;
+    color: white;
+}
 .navigationBar {
     background: #1A1F25;
 }
@@ -67,3 +76,24 @@ nav-link {
 .btnAdmin{
     width: 100px;
 }
+.select-style {
+    color:white;
+    background: #364658;
+    border-color: #364658;
+    border-radius: 7px ;
+    height: 34px;
+    width: 200px;
+}
+.select-style:focus {
+    border-color: #364658;
+    box-shadow: 2px 2px 3px 0 #6e91bb;
+}
+.logout {
+    background-color: #1F2C3A;
+    color:white;
+}
+.logout:hover {
+    background-color: #1F2C3A;
+    color:#7F8084;
+}
+

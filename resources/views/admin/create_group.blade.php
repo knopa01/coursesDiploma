@@ -15,7 +15,11 @@
                                     <input id="group_name" type="text" class=" loginInputs form-control @error('group_name') is-invalid @enderror" name="group_name" value="{{old('group_name')}}" >
 
                                     @error('group_name')
-                                    <div class="alert alert-danger"> {{$message}}</div>
+
+                                        <span class="invalid-feedback" role="alert">
+
+                                            <strong>{{$message}}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                             </div>

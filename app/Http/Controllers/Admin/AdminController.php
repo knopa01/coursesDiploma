@@ -46,7 +46,7 @@ class AdminController extends Controller {
         $group->save();
         $msg = "Данные успешно добавлены!";
         $groups = Group::all();
-        return view("admin.groups", compact('groups', 'msg'));
+        return redirect(route("admin_groups"));
 
     }
     public function edit_group() {
@@ -58,19 +58,14 @@ class AdminController extends Controller {
         'group_name.unique' => 'Такая группа уже существует!']);
         $group_id = request()->group_id;
         $group_name = request()->group_name;
-        $msg = "";
-
         $group_info = Group::where('id', '=', $group_id)->get()[0];
-
         if ($group_info->group_name != $group_name) {
             $group = Group::find($group_id);
             $group->group_name = $group_name;
             $group->save();
             $msg = "Сохранено";
         }
-        $groups = Group::all();
-        //dd($group_info);
-        return view("admin.groups", compact('groups', 'msg'));
+        return redirect(route("admin_groups"));
     }
     public function delete_group() {
         $group_id = request()->group_id;
@@ -80,10 +75,7 @@ class AdminController extends Controller {
             $group->delete();
         }
         //dd($group);
-
-        $groups = Group::all();
-        $msg = "Группа удалена";
-        return view("admin.groups", compact('groups', 'msg'));
+        return redirect(route("admin_groups"));
     }
 
 }

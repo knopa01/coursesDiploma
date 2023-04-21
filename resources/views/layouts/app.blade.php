@@ -37,10 +37,18 @@
         <!--class="navbar navbar-expand-md navbar-light bg-white shadow-sm"-->
         <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
-                <a class="navbar-brand text-white" href="{{ url('/home') }}">
-                    <img class="logo" src="{{asset('images/logo.png')}}">
-                    {{ config('SSUGT Courses', 'SSUGT Courses') }}
-                </a>
+                @guest
+                    <a class="navbar-brand text-white" href="{{ url('/') }}">
+                        <img class="logo" src="{{asset('images/logo.png')}}">
+                        {{ config('SSUGT Courses', 'SSUGT Courses') }}
+                    </a>
+                @else
+                    <a class="navbar-brand text-white" href="{{ url('/home') }}">
+                        <img class="logo" src="{{asset('images/logo.png')}}">
+                        {{ config('SSUGT Courses', 'SSUGT Courses') }}
+                    </a>
+                @endguest
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -84,7 +92,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Выход') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

@@ -4,15 +4,19 @@
     <div class="row justify-content">
         <form method="POST" action="{{ route('find_student')}}">
             @csrf
-            <div class="form-row">
-                <div class="form-group col-md-10">
-                    <label for="name" class="col-md-4 col-form-label text-md-end">Имя студента:</label>
-                    <input type="text" class="form-control" id="name" name="name">
-                    <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$course_id}}>
-                    <button type="submit" class="btn btn-primary btn-block">Найти</button>
+
+                <div class="row mb-3">
+
+                    <h3>Имя студента:</h3>
+                    <div class="form-group col-md-10">
+
+                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$course_id}}>
+                        <button type="submit" class="btn btn-primary btn-block">Найти</button>
+                    </div>
                 </div>
 
-            </div>
+
 
         </form>
         <div class="col-md-8">
@@ -22,24 +26,33 @@
                     @if (count($in_progress) != 0)
                         <h3>Студенты, которые проходят этот курс:</h3>
                         @foreach ($in_progress as $elem)
-                            <div class="alert alert-info">
-                                <div>
-                                    <h3>Студент: {{ $elem["student"]->name }}</h3>
-                                    @if($elem["course"]->done_date != null) {
-                                        <h1>Курс пройден: {{$elem["course"]->done_date}}</h1>
-                                    }
-                                    @endif
-                                    @if ($elem["tasks"] == null)
-                                        <h3>Студент не решил ни одной задачи.</h3>
-                                    @else
-                                        @foreach ($elem["tasks"] as $task)
-                                            <h3>Задача: {{ $task["task_name"] }}</h3>
-                                            <h3>Дата выполнения: {{ $task["task_info"]->done_date }}</h3>
-                                        @endforeach
-                                    @endif
+                            <form method="POST" action="{{ route('find_student')}}">
+                                @csrf
+                                    <input type="hidden" class="form-control" name="name" value="{{ $elem["student"]->name }}">
+                                    <input type="hidden" class="form-control" name="course_id" value={{$course_id}}>
 
-                                </div>
-                            </div>
+                                    <button type="submit" class="alert loginInputs">
+                                    <div class="alert loginInputs">
+                                        <h2>Студент: {{ $elem["student"]->name }}</h2>
+                                        @if($elem["course"]->done_date != null)
+                                            <h3>Курс пройден: {{$elem["course"]->done_date}}</h3>
+                                        @else
+                                            @if ($elem["tasks"] == null)
+                                                <h3>Студент не решил ни одной задачи.</h3>
+                                            @else
+                                                <h3>Студент проходит курс.</h3>
+                                                {{--
+                                                @foreach ($elem["tasks"] as $task)
+                                                    <h3>Задача: {{ $task["task_name"] }}</h3>
+                                                    <h3>Дата выполнения: {{ $task["task_info"]->done_date }}</h3>
+                                                @endforeach
+                                                --}}
+                                            @endif
+                                        @endif
+                                    </div>
+                                    </button>
+                            </form>
+
                         @endforeach
 
                     {{--

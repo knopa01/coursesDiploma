@@ -67,14 +67,21 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'usertype' => ['required', 'string','max:10'],
+            'usertype' => ['required', 'string','max:10', function($attribute, $value, $fail) {
+                //dd(request()->usertype);
+                if(request()->usertype != "student" && request()->usertype != "teacher") {
+                    //dd("tut");
+                    $fail('Выберите тип пользователя!');
+                }
+            }],
             'usergroup' => function($attribute, $value, $fail) {
                 //dd(request()->usergroup);
 
                 if(request()->usertype == "student") {
                     if(request()->usergroup == "Выберите значение") {
-
-
+                        //dd(request()->usergroup);
+                        //return "Выберите значение";
+                        //dd("tut");
                         $fail('Выберете группу!');
                     }
 
@@ -83,7 +90,18 @@ class RegisterController extends Controller
 
             },
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],[
+            'usergroup' => "Выберите значение!",
+            'name.required' => "Введите имя!",
+            'usertype' => "Выберите значение!",
+            'email.required' => "Введите e-mail!",
+            'email.unique' => "Данная почта уже зарегистрирована!",
+            'password.required' => "Введите пароль!",
+            'password.confirmed' => "Пароли не совпадают!",
+            'password.min' => "Минимальная длина пароля 8 символов!",
+
         ]);
+
     }
 
     /**
@@ -98,7 +116,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'usertype' => $data['usertype'],
-            'user_group' => $data['user_group'],
+            'user_group' => $data['usergroup'],
 
             'password' => Hash::make($data['password']),
         ]);
