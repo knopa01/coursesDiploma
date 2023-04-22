@@ -7,7 +7,7 @@
                 @if (count($data) != 0)
                     @foreach ($data as $elem)
                         <div class="alert alert-info">
-                            <a href="{{ route('show_study_results', ['course_id'=>$elem->id]) }}">
+                            <a href="{{ route('show_study_form', ['course_id'=>$elem->id]) }}">
                                 <h3>Название: {{ $elem->course_name }}</h3>
                                 <h3>Описание: {{ $elem->course_description }}</h3>
                             </a>

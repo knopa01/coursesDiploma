@@ -19,6 +19,29 @@
 
 
         </form>
+        <form method="POST" action="">
+            @csrf
+            <div class="row mb-3" id="userGroup" hidden>
+                <label for="usergroup" class="col-md-4 col-form-label text-md-end">{{ __('Выберите группу:') }}</label>
+                <div class="col-md-6">
+                    <select id="group" name="group" class="select-style @error('group') is-invalid @enderror" >
+                        <option selected>Выберите значение</option>
+                        @foreach($groups as $group)
+                            <option value="{{$group->id}}">{{$group->group_name}}</option>
+                        @endforeach
+                    </select>
+                    @error('group')
+
+                    <span class="invalid-feedback" role="alert">
+                                    {{--<div class="text-danger" style="font-size: .875em;"> <strong>Выберете группу!</strong> </div>--}}
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                    @enderror
+                </div>
+            </div>
+            <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$course_id}}>
+            <button type="submit" class="btn btn-primary btn-block">Найти</button>
+        </form>
         <div class="col-md-8">
             <div class="row mb-3">
 

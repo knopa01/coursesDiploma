@@ -28,10 +28,12 @@
                     @else
                         @if (count($in_progress) != 0)
 
+
                         @foreach ($in_progress as $elem)
                             <div class="alert alert-info">
                                 <div>
                                     <h3>Студент: {{ $elem["student"]->name }}</h3>
+                                    <h3>Группа {{$group_name}}</h3>
                                     @if($elem["course"]->done_date != null)
                                         <h3>Курс пройден: {{$elem["course"]->done_date}}</h3>
 
@@ -53,7 +55,7 @@
                             <h3>Студент еще не начал изучать курс. </h3>
                         @endif
                     @endif
-                        <a class="btn  btn-back btnAdmin mt-2" href="{{ route('show_study_results', ['course_id'=>$course_id]) }}">
+                        <a class="btn  btn-back btnAdmin mt-2" href="{{ route('group_results', ['course_id'=>$course_id, 'group_id'=>$group_id]) }}">
                             Назад
                         </a>
 

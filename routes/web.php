@@ -69,8 +69,8 @@ Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])
 Route::get('/study-results', [StudyResultsController::class, 'index'])->middleware(['auth'])->name('study_results');
 Route::get('/study-results/show', [StudyResultsController::class, 'show_results'])->middleware(['auth'])->name('show_study_results');
 Route::match(['get', 'post'],'/study-results/student', [StudyResultsController::class, 'find_student'])->middleware(['auth'])->name('find_student');
-
-
+Route::match(['get', 'post'],'/study-results/search', [StudyResultsController::class, 'show_study_form'])->middleware(['auth'])->name('show_study_form');
+Route::match(['get', 'post'],'/study-results/group', [StudyResultsController::class, 'group_results'])->middleware(['auth'])->name('group_results');
 
 
 //student
