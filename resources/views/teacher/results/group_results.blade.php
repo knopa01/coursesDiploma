@@ -18,11 +18,13 @@
                     </div>
 
         </form>
+
+        </div>
         @if(count($groups) != 0)
             <form method="POST" action="{{route('group_results')}}">
                 @csrf
-                <div class="row mb-3" id="userGroup">
-                    <label for="group_id" class="col-md-4 col-form-label text-md-end">{{ __('Выберите группу:') }}</label>
+                <div  id="userGroup">
+                    <label for="group_id" class=" col-form-label text-md-end">{{ __('Выберите группу:') }}</label>
                     <div class="col-md-6">
                         <select id="group_id" name="group_id" class="select-style @error('group_id') is-invalid @enderror" >
                             <option selected>Выберите значение</option>
@@ -37,16 +39,17 @@
                                 <strong>{{$message}}</strong>
                         </span>
                         @enderror
+                        <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$main_info["course"]->id}}>
+                        <button type="submit" class="btn btn-primary btn-block ms-2">Найти</button>
                     </div>
+
                 </div>
-                <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$main_info["course"]->id}}>
-                <button type="submit" class="btn btn-primary btn-block">Найти</button>
+
             </form>
         @else
             <h3>Список групп пуст.</h3>
         @endif
-        </div>
-        <div>
+        <div class="mt-2">
             <h2>Группа: {{$main_info["group"]->group_name}}</h2>
             @if($msg != "" )
                 <h3>{{$msg}}</h3>
@@ -64,7 +67,7 @@
                                 <input type="hidden" class="form-control" name="name" value="{{ $elem["student"]->name }}">
                                 <input type="hidden" class="form-control" name="course_id" value={{$course_id}}>
                                 --}}
-                                    <a href="{{route('find_student', ["name"=>$d["student"]->name, "course_id"=>$main_info["course"]->id])}}">
+                                    <a href="{{route('find_student', ["name"=>$d["student"]->name, "course_id"=>$main_info["course"]->id])}}" class="text-decoration-none">
                                         <div class="alert loginInputs">
                                             <h3>Студент: {{ $d["student"]->name }}</h3>
                                             @if($d["course"]->done_date != null)

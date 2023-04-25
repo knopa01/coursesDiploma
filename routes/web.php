@@ -49,7 +49,7 @@ Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
 //course
 Route::get('/home/create-course', [ManageCourseController::class, 'show_form'])->middleware(['auth'])->name('create_course');
 Route::post('/home/create-course/submit', [ManageCourseController::class, 'create_course'])->middleware(['auth'])->name('created_course');
-Route::get('/home/course-{course_id}', [CourseContentController::class, 'index'])->middleware(['auth'])->name('manage_course');
+Route::get('/home/course', [CourseContentController::class, 'index'])->middleware(['auth'])->name('manage_course');
 Route::get('/home/delete-course', [ManageCourseController::class, 'delete_course'])->middleware(['auth'])->name('delete_course');
 //course content
 Route::get('/home/course-{course_id}/create-content', [CourseContentController::class, 'show_form'])->middleware(['auth'])->name('create_content');

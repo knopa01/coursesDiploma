@@ -21,7 +21,7 @@
                                 <div class="row mb-3">
                                     <label for="language_id" class="col-md-4 col-form-label text-md-end">Язык:</label>
                                     <div class="col-md-6">
-                                        <select id="language_id" name="language_id" class="loginInputs @error('language_id') is-invalid @enderror">
+                                        <select id="language_id" name="language_id" class="select-style @error('language_id') is-invalid @enderror">
                                             <option selected value={{$selected_language->id}}>{{$selected_language->language_name}}</option>
                                             @foreach ($languages as $language)
                                                 <option value={{$language->id}}>{{$language->language_name}}</option>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="row mb-0">
                                     <div class="col-md-8 offset-md-4">
-                                        <button type="submit" class="btn btn-login">
+                                        <button type="submit" class="btn btn-save">
                                             Сохранить
                                         </button>
                                         <a href="{{ route('delete_course', ['course_id'=>$course->id]) }}" class="btn btn-danger">Удалить курс</a>
@@ -51,19 +51,19 @@
 
                             </div>
                         </form>
-
+                        <div class="alert card  ">
                         @if ($data)
-                        <div class="alert card">
+
                             <h4>Содержание:</h4>
                             @foreach ($data as $elem)
-                                <div class="row mb-2 ">
+                                <div class="col-md-10 ">
                                     <div class="alert loginInputs">
                                         <a href="{{ route('manage_content', ['course_id'=>$course_id, 'content_id'=>$elem->id]) }}" class="loginInputs" >
                                             <h3>Название: {{ $elem->content_name }}</h3>
                                             @if ($elem->type_of_content == "lecture")
-                                                <h3>Тип: Теория</h3>
+                                                <h4>Тип: Теория</h4>
                                             @else
-                                                <h3>Тип: Задача</h3>
+                                                <h4>Тип: Задача</h4>
                                             @endif
 
 
@@ -72,10 +72,15 @@
 
                                 </div>
                             @endforeach
-                            @endif
+
+                        @endif
                             <div class="col-md-8 ">
-                                <a href="{{ route('create_content', ['course_id'=>$course_id]) }}" class="btn btn-login">Создать лекцию/задачу</a>
+                                <a href="{{ route('create_content', ['course_id'=>$course_id]) }}" class="btn btn-back">Создать лекцию/задачу</a>
                             </div>
+                        </div>
+
+                        <div class="col-md-8 ">
+                            <a href="{{route("home")}}" class="btn btn-login">Назад</a>
                         </div>
                     </div>
 

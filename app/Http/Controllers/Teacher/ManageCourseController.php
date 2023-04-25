@@ -86,7 +86,10 @@ class ManageCourseController extends Controller
         //$courses = Courses::where('user_id', $user);
         //$courses = Courses::all();
         //dd($user->courses);
-        $data = $user->courses;
+        //$data = $user->courses;
+        $data = Courses::where("user_id", "=", $user->id)->orderBy("course_name")->get();
+
+        //$data = $data->orderBy("course_name");
         //dd($data);
         return view("teacher.courses.index", ['data' => $data]);
 

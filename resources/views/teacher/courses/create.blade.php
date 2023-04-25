@@ -71,9 +71,10 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-login">
+                                <button type="submit" class="btn btn-save">
                                     Создать курс
                                 </button>
+                                <a href="{{route("home")}}" class="btn btn-danger ms-1">Отмена</a>
 
                             </div>
                         </div>

@@ -30,7 +30,7 @@
 
 
                         @foreach ($in_progress as $elem)
-                            <div class="alert alert-info">
+                            <div class="alert loginInputs">
                                 <div>
                                     <h3>Студент: {{ $elem["student"]->name }}</h3>
                                     <h3>Группа {{$group_name}}</h3>

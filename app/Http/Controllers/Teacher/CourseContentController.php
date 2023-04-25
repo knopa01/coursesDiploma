@@ -17,8 +17,9 @@ class CourseContentController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function index($course_id)
+    public function index()
     {
+        $course_id = request()->course_id;
         $course_data = Courses::where('id', '=', $course_id)->get();
         $data = null;
         $course = null;
@@ -166,6 +167,7 @@ class CourseContentController extends Controller
         $data = Test::where('id', '=', $test_id)->get();
         $course_id = request()->course_id;
         if ($data[0]->test_input != $test_input || $data[0]->test_output != $test_output) {
+
             /*
             Test::where('id', $test_id)->update(array(
                 'test_input'=>$test_input,
