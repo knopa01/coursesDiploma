@@ -48,24 +48,46 @@
                                     </div>
 
                                 </div>
+
                                 <div class="row mb-3">
                                     <label for="content_description" class="col-md-4 col-form-label text-md-end">Содержание</label>
-                                    {{--
+                                        {{--
                                         <div class="col-md-6">
                                         <textarea id="content_description" class="form-control" name="content_description"></textarea>
                                     </div>
+                                        -
                                         --}}
+                                </div>
 
 
-                                        <div class="form-group">
-                                            <textarea class=" loginInputs ckeditor form-control"  class="@error('content_description') is-invalid @enderror" name="content_description"></textarea>
+
+                                            {{--<textarea class=" loginInputs ckeditor form-control"  class="@error('content_description') is-invalid @enderror" name="content_description"></textarea>--}}
+                                            <textarea class=" loginInputs form-control "  class="@error('content_description') is-invalid @enderror" name="content_description"></textarea>
+                                            <script>
+                                                CKEDITOR.replace( 'content_description' );
+                                            </script>
+
                                             @error('content_description')
                                                 <div class="alert alert-danger"> Это поле необходимо заполнить!</div>
                                             @enderror
-                                        </div>
 
 
-                                </div>
+
+
+
+                                {{--
+                                <div id="editor">This is some sample content.</div>
+                                <script>
+                                    ClassicEditor
+                                        .create( document.querySelector( '#editor' ) )
+                                        .then( editor => {
+                                            console.log( editor );
+                                        } )
+                                        .catch( error => {
+                                            console.error( error );
+                                        } );
+                                </script>
+                                --}}
 
                                 <div class="row mb-0">
                                     <div class="col-md-8 offset-md-4">

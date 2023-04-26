@@ -31,23 +31,24 @@
                                         <input id="course_id" type="hidden" class="form-control" name="course_id" value={{$course_id}}>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="content_description" class="col-md-4 col-form-label text-md-end">Содержание</label>
-                                        <div class="col-md-6">
-                                            <textarea id="content_description" class="form-control ckeditor" name="content_description">{{$data[0]->content_description}}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
                                         <label for="sort" class="col-md-4 col-form-label text-md-end">Порядок</label>
                                         <div class="col-md-6">
                                             <input id="sort" type="number" min=1 class="form-control loginInputs" name="sort" value={{$data[0]->sort}}>
                                             @error('sort')
-                                                <div class="alert alert-danger"> Данный порядковый номер уже существует!</div>
+                                            <div class="alert alert-danger"> Данный порядковый номер уже существует!</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="row mb-0">
-                                        <div class="col-md-8 offset-md-4">
+                                        <label for="content_description" class="col-md-4 col-form-label text-md-end">Содержание</label>
+                                        <textarea id="content_description" class="form-control description description" name="content_description">{{$data[0]->content_description}}</textarea>
+                                        <script>
+                                            CKEDITOR.replace( 'content_description' );
+
+
+                                        </script>
+
+
+                                        <div class="col-md-8 offset-md-4 mt-2">
                                             <button type="submit" class="btn btn-save">
                                                 Сохранить
                                             </button>
@@ -57,7 +58,7 @@
                                                 <a href="{{ route('delete_content', ['content_id'=>$data[0]->id]) }}" class="btn btn-danger ms-2">Удалить теорию</a>
                                             @endif
                                         </div>
-                                    </div>
+
 
                                     @if ($data[0]->type_of_content=="task")
                                         <div class="alert card mt-4">

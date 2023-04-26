@@ -20,18 +20,28 @@
                     @foreach ($contents as $content)
                         <div class="alert card">
                             <p>{{$content->content_name}}</p>
+                            <pre>{!! $content->content_description !!}</pre>
 
-                            <textarea class="loginInputs form-control" readonly>{{$content->content_description}}</textarea>
+
+                            {{--
+                            <textarea id="content_description" class="loginInputs form-control" readonly>{!! $content->content_description !!}</textarea>
                             <script>
                                 // Turn off automatic editor creation first.
-                                CKEDITOR.disableAutoInline = false;
-                                CKEDITOR.inline( 'editor1' );
+                                //CKEDITOR.disableAutoInline = false;
+
+                                CKEDITOR.inline( 'content_description' );
+                                //CKEDITOR.replace( 'content_description' );
+                                CKEDITOR.replace('content_description');
+                                //CKEDITOR.instances.content_description.config.readOnly = true;
+
                             </script>
+                            --}}
+
 
 
                             {{--CKEDITOR--}}
                             <script type="text/javascript">
-                                CKEDITOR.instances["content_description"].setHtml( '<b>Inner</b> HTML' );
+                                CKEDITOR.instances["content_description"].setHtml( "<?php $content->content_description?>" );
                             </script>
                             @if ($content->type_of_content == "task")
                             @php

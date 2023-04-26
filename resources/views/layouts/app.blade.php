@@ -7,12 +7,12 @@
 
 
     <!--<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>-->
-    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <!--<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>-->
 
 
 
 
-    <!-- CSRF Token -->
+   <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -21,6 +21,7 @@
     @viteReactRefresh
     @viteReactRefresh
     @vite(['resources/js/app.js'])
+
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
@@ -30,6 +31,9 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/app.css') }}">
 
+    <!--<script src="https://cdn.ckeditor.com/4.21.0/basic/ckeditor.js"></script>-->
+
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 </head>
 
 <body>
@@ -110,12 +114,14 @@
         </main>
     </div>
 </body>
-<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+{{--
+<script src="//cdn.ckeditor.com/4.14.1/basic/ckeditor.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.ckeditor').ckeditor();
     });
 </script>
+--}}
 </html>
 
 
