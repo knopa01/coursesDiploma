@@ -5,6 +5,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Создать курс') }}</div>
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('created_course') }}">
                         @csrf
@@ -16,8 +17,11 @@
                                 <input id="course_name" type="text" class=" loginInputs form-control @error('course_name') is-invalid @enderror" name="course_name" value="{{old('course_name')}}" >
 
                                 @error('course_name')
-                                    <div class="alert alert-danger"> {{$message}}</div>
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{$message}}</strong>
+                                    </span>
                                 @enderror
+
 
                                 {{--
                                 @if ($errors->any())
@@ -38,16 +42,18 @@
                             <label for="language_id" class="col-md-4 col-form-label text-md-end">{{ __('Выберете язык') }}</label>
                             <div class="col-md-6">
 
-                                <select id="language_id" name="language_id" class= "loginInputs @error('language_id') is-invalid @enderror">
+                                <select id="language_id" name="language_id" class= " select-style @error('language_id') is-invalid @enderror">
 
                                     @foreach ($languages as $language)
-                                        <option value={{$language->id}}>{{$language->language_name}}</option>
+                                        <option class="options" value={{$language->id}}>{{$language->language_name}}</option>
 
                                     @endforeach
                                 </select>
 
                                 @error('language_id')
-                                        <div class="alert alert-danger"> Пожалуйста, выберите язык</div>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Пожалуйста, выберите язык!</strong>
+                                    </span>
                                 @enderror
 
 
@@ -58,10 +64,18 @@
                             <label for="course_description" class="col-md-4 col-form-label text-md-end">Описание курса</label>
 
                             <div class="col-md-6">
-                                <textarea rows="4", cols="54" id="course_description" class="loginInputs form-control @error('course_description') is-invalid @enderror" name="course_description">{{old('course_description')}}</textarea>
+                                <textarea id="course_description" class="form-control description description @error('course_description') is-invalid @enderror" name="course_description">{{old('course_description')}}</textarea>
                                 @error('course_description')
-                                <div class="alert alert-danger"> {{$message}}</div>
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{$message}}</strong>
+                                    </span>
                                 @enderror
+
+                                <script>
+                                    CKEDITOR.replace( 'course_description' );
+
+
+                                </script>
                             </div>
 
 
@@ -74,8 +88,7 @@
                                 <button type="submit" class="btn btn-save">
                                     Создать курс
                                 </button>
-                                <a href="{{route("home")}}" class="btn btn-danger ms-1">Отмена</a>
-
+                                <a href="{{route("home")}}" class="btn btn-cancel ms-1">Отмена</a>
                             </div>
                         </div>
                     </form>

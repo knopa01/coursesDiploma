@@ -44,7 +44,10 @@ class CourseContentController extends Controller
             'course_name' => ['required'],
             'language_id' => ['required'],
             'course_description' => ['required']
-        ]);
+        ],
+        ['course_name.required' => "Это поле обязательно для заполнения!",
+        'course_description.required' => "Это поле обязательно для заполнения!",
+        'language_id.required' => "Это поле обязательно для заполнения!"]);
 
         $course_id = request()->course_id;
         $course_name = request()->course_name;
@@ -120,10 +123,23 @@ class CourseContentController extends Controller
 
                     }
                 }
+            },
+            'sort' => function($attribute, $value, $fail) {
+                if(request()->sort == null) {
+                    $fail('Это поле обязательно для заполнения!');
+                }
+                if(request()->sort < 1) {
+                    $fail('Минимальное значение: 1!');
+                }
             }
 
 
-        ]);
+
+        ],
+        ['content_name.required' => "Это поле обязательно для заполнения!",
+        'content_description.required' => "Это поле обязательно для заполнения!",
+        'sort.required' => "Это поле обязательно для заполнения!"],
+        );
         $course_id = request()->course_id;
         //$all_content = Content::where('course_id', $course_id)->get();
         $sort = request()->sort;
@@ -207,7 +223,19 @@ class CourseContentController extends Controller
 
                         }
                     }
+                    if(request()->content_sort == null) {
+                        $fail("Это поле обязательно для заполнения!");
+                    }
+                    if(request()->content_sort < 1) {
+                        $fail("Минимальное значение: 1!");
+                    }
                 }
+        ],
+        [
+            'content_name.required' => "Это поле обязательно для заполнения!",
+            'content_type.required' => "Это поле обязательно для заполнения!",
+            'content_description.required' => "Это поле обязательно для заполнения!",
+            'content_sort.required' => "Это поле обязательно для заполнения!",
         ]);
 
 

@@ -14,7 +14,7 @@
                                     <div class="alert course ">
 
                                             <h3 class="text-center">{{ $elem->course_name }}</h3>
-                                            <h4 class="mt-4">Описание: {{ $elem->course_description }}</h4>
+
 
 
                                     </div>

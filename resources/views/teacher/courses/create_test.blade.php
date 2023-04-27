@@ -31,7 +31,7 @@
                                     <button type="submit" class="btn btn-save">
                                         Создать
                                     </button>
-                                    <a class="btn btn-danger ms-1" href="{{route("manage_content", ["course_id"=>$course_id, "content_id"=>$content_id])}}">Отмена</a>
+                                    <a class="btn btn-cancel ms-1" href="{{route("manage_content", ["course_id"=>$course_id, "content_id"=>$content_id])}}">Отмена</a>
                                 </div>
                             </div>
 

@@ -10,8 +10,8 @@ body {
     background: #6A2F85;
     color: white;
     font-weight: 500;
-
     border: 1px solid #522467;
+    width: 150px;
 
 }
 .links {
@@ -20,27 +20,43 @@ body {
 
     text-decoration: none
 }
-.btn-login:hover {
+.btn-login:hover, .btn-login:active {
     background: #3e1d4d;
     color: white;
 
 }
 .btn-save {
-    background: #8FB92A;
+    background-color: #8FB92A;
     color: white;
     font-weight: 500;
+    border: 1px solid #739421;
+    width: 150px;
 
 }
-.btn-save:hover {
+.btn-save:hover,  .btn-save:active{
     background: #5B7718;
     color: white;
 }
+
+.btn-cancel {
+    background-color: #dc3545;
+    color: white;
+    font-weight: 500;
+    border: 1px solid #a22632;
+    width: 150px;
+}
+.btn-cancel:hover, .btn-cancel:active {
+    background-color: #a22632;
+}
+
 .btn-back {
     background: #0D6EFD;
     color: white;
     font-weight: 500;
+    border: 1px solid #0a56c7;
+    width: 150px;
 }
-.btn-back:hover {
+.btn-back:hover, .btn-back:hover {
     background: #095DDA;
     color: white;
 }
@@ -86,6 +102,9 @@ nav-link {
     height: 34px;
     width: 200px;
 }
+.options {
+    background-color:#364658;
+}
 .select-style:focus {
     border-color: #364658;
     box-shadow: 2px 2px 3px 0 #6e91bb;
@@ -102,7 +121,7 @@ nav-link {
     border-radius: 20px;
 }
 .course {
-    background-color: transparent;
+    background-color: #21272f;
     color:white;
     border-radius: 10px;
     height: 200px;
@@ -110,22 +129,31 @@ nav-link {
     display: flex;
     justify-content: center;
 
-    border: 1px solid #293542;
 
-    box-shadow: 3px 5px 5px #293542;
+
+    box-shadow: 3px 5px 5px #0c0f13;
 }
 .course-content {
-    background-color: transparent;
+    background-color: #21272f;
     color:white;
     border-radius: 10px;
     flex-direction: column;
     display: flex;
     justify-content: center;
-    border: 1px solid #293542;
-    box-shadow: 3px 3px 5px #293542;
+
+    box-shadow: 3px 3px 5px #0c0f13;
 }
 
-.course, .course-content:hover {
+.course:hover, .course-content:hover {
     background-color: #293542;
+}
+.img-back:hover {
+    background-color: #364658;
+    border-radius: 20px;
+}
+.student-marks {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 

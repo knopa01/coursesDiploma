@@ -6,7 +6,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Редактирование') }}</div>
+
+                    <div class="position-relative">
+                        <div class="card-header ms-4">{{ __('Редактирование') }}
+                            <a href="{{route("manage_content", ["course_id"=>$course_id, "content_id" => $content_id])}} " class="position-absolute top-5 start-0 ms-3 " >
+                                <img src="/images/back.png" height="20" class="img-back">
+                            </a>
+
+
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('edit_test') }}">

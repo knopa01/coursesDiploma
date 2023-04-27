@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content;
 use App\Models\Group;
 use App\Models\User;
+use App\Models\Courses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentCourse;
@@ -15,7 +16,8 @@ class StudyResultsController extends Controller
 {
     public function index() {
         $user = User::find(Auth::id());
-        $data = $user->courses;
+        //$data = $user->courses;
+        $data = Courses::where("user_id", "=", $user->id)->orderBy("course_name")->get();
         return view("teacher.results.index", ['data' => $data]);
     }
     public function show_study_form() {
@@ -222,6 +224,7 @@ class StudyResultsController extends Controller
     public function find_student(Request $request)
     {
         $name = $request->name;
+
         $user_name = "";
         $course_id = $request->course_id;
         $user = [];
@@ -231,11 +234,15 @@ class StudyResultsController extends Controller
         $group_id = null;
         if($name != null) {
             $user = User::where('name', 'LIKE', "%{$name}%")->get();
-            if(count($user) != 0) {
 
+            //сделать для многих студентов
+            if(count($user) != 0) {
                 $user = $user[0];
+                //dd($user);
                 $user_name = $user->name;
+                //$group = Group::where('id', '=', $user->user_group_id)->get()[0];
                 $group = Group::where('id', '=', $user->user_group_id)->get()[0];
+                //dd($group);
                 $group_name = $group->group_name;
                 $group_id = $group->id;
                 //dd($group_name);
