@@ -11,6 +11,8 @@ body {
     color: white;
     font-weight: 500;
 
+    border: 1px solid #522467;
+
 }
 .links {
 
@@ -98,5 +100,32 @@ nav-link {
 }
 .description {
     border-radius: 20px;
+}
+.course {
+    background-color: transparent;
+    color:white;
+    border-radius: 10px;
+    height: 200px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+
+    border: 1px solid #293542;
+
+    box-shadow: 3px 5px 5px #293542;
+}
+.course-content {
+    background-color: transparent;
+    color:white;
+    border-radius: 10px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #293542;
+    box-shadow: 3px 3px 5px #293542;
+}
+
+.course, .course-content:hover {
+    background-color: #293542;
 }
 

@@ -55,10 +55,12 @@
                         @if ($data)
 
                             <h4>Содержание:</h4>
+                            <div class="">
                             @foreach ($data as $elem)
-                                <div class="col-md-10 ">
-                                    <div class="alert loginInputs">
-                                        <a href="{{ route('manage_content', ['course_id'=>$course_id, 'content_id'=>$elem->id]) }}" class="loginInputs" >
+                                <div class="col-md-10 mt-2 ">
+                                    <a href="{{ route('manage_content', ['course_id'=>$course_id, 'content_id'=>$elem->id]) }}" class="text-decoration-none text-white" >
+                                    <div class="alert course-content">
+
                                             <h3>Название: {{ $elem->content_name }}</h3>
                                             @if ($elem->type_of_content == "lecture")
                                                 <h4>Тип: Теория</h4>
@@ -67,12 +69,13 @@
                                             @endif
 
 
-                                        </a>
+
                                     </div>
+                                    </a>
 
                                 </div>
                             @endforeach
-
+                            </div>
                         @endif
                             <div class="col-md-8 ">
                                 <a href="{{ route('create_content', ['course_id'=>$course_id]) }}" class="btn btn-back">Создать лекцию/задачу</a>
