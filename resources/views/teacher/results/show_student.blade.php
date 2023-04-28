@@ -37,8 +37,6 @@
                                             <h3>{{$msg}}</h3>
                                         @else
                                             @if (count($in_progress) != 0)
-
-
                                                 @foreach ($in_progress as $elem)
                                                     <div class="col-md-12 mt-2 ">
                                                         <div class="alert course-content">
