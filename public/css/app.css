@@ -156,4 +156,40 @@ nav-link {
     flex-direction: row;
     justify-content: center;
 }
+@media(max-width: 490px){
+    .size_select{
+        width: 140px;
+        font-size: 12px;
+    }
+
+    .button_size{
+        width: 90px
+    }
+}
+@media(max-width: 580px) {
+    .input_size{
+        height: 40px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .size_select {
+        margin-bottom: 10px;
+    }
+}
+@media (min-width: 581px) {
+    .input_size{
+        width: 40vw; min-width: 150px; border-radius: 5px;
+    }
+
+}
+.input_size{
+    max-width: 500px;
+}
+.size_select{
+    height: 40px;
+}
+.button_size{
+    height: 40px;
+}
+
 

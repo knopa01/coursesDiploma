@@ -2,7 +2,7 @@
 @section('content')
 <div class="container ">
     <div class="row justify-content">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card">
                 <div class="position-relative">
                     <div class="card-header ms-4">{{$main_info["course"]->course_name}}
@@ -15,21 +15,15 @@
                 </div>
                 <div class="card-body ">
                     <div class="alert ">
-                        <div class="alert ">
-                            <form method="POST" class="mt-2 col-md-8" action="{{ route('find_student')}}">
+                        <div class="alert">
+                            <form method="POST" class="mt-2" action="{{ route('find_student')}}">
                                 @csrf
-                                <div class="justify-content-center">
-
-
+                                    <label for="name" class="col-12 col-form-label">{{ __('Имя студента:') }}</label>
                                     <div class="row mb-3">
-                                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Имя студента:') }}</label>
-                                        <div class="col-md-6 ">
-                                            <input type="text" class="form-control loginInputs" id="name" name="name">
-                                            <input type="hidden"  id="course_id" name="course_id" value={{$main_info["course"]->id}}>
-                                            <button type="submit" class="btn btn-login mt-2">Найти</button>
-                                        </div>
+                                        <input type="text"  class="input_size col-12 col-sm-4 me-1 size_input loginInputs" id="name" name="name">
+                                        <input type="hidden"  id="course_id" name="course_id" value={{$main_info["course"]->id}}>
+                                        <button type="submit" style="width: 10vw; min-width: 100px " class="col-2 button_size btn btn-login">Найти</button>
                                     </div>
-                                </div>
                             </form>
                         </div>
 
@@ -39,11 +33,10 @@
                                 <form method="POST" action="{{route('group_results')}}">
                                     @csrf
                                     <div  id="userGroup">
-
                                             <div class="row mb-3">
-                                                <label for="group_id" class="col-md-4 col-form-label text-md-end">{{ __('Выберите группу:') }}</label>
-                                                <div class="col-md-6">
-                                                    <select id="group_id" name="group_id" class="select-style @error('group_id') is-invalid @enderror" >
+                                                <label for="group_id" class="col-12 col-form-label ">{{ __('Выберите группу:') }}</label>
+                                                <div class="col-md-auto">
+                                                    <select id="group_id" name="group_id" class="size_select select-style @error('group_id') is-invalid @enderror" >
                                                         <option selected>Выберите значение</option>
                                                         @foreach($groups as $group)
                                                             <option value="{{$group->id}}">{{$group->group_name}}</option>
@@ -52,12 +45,11 @@
                                                     @error('group_id')
 
                                                     <span class="invalid-feedback" role="alert">
-                            {{--<div class="text-danger" style="font-size: .875em;"> <strong>Выберете группу!</strong> </div>--}}
                                                         <strong>{{$message}}</strong>
                                                 </span>
                                                     @enderror
                                                     <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$main_info["course"]->id}}>
-                                                    <button type="submit" class="btn btn-primary btn-login ms-2">Найти</button>
+                                                    <button type="submit"  class="button_size btn btn-login">Найти</button>
                                                 </div>
 
                                             </div>
