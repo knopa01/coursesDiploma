@@ -6,15 +6,23 @@
             <div class="card">
                 <div class="position-relative">
                     <div class="card-header ms-4"> Результат:
-                        <a href="{{ route('group_results', ['course_id'=>$course_id, 'group_id'=>$group_id]) }}" class="position-absolute top-2 start-0 ms-3" >
-                            <img src="/images/back.png" height="20" class="img-back">
-                        </a>
-
-
+                        @php
+                            $url = request()->headers->get('referer');
+                            $parts = parse_url( $url );
+                        @endphp
+                        @if($parts["path"] == "/study-results/search")
+                            <a href="{{route("study_results")}}" class="position-absolute top-2 start-0 ms-3" >
+                                <img src="/images/back.png" height="20" class="img-back">
+                            </a>
+                        @elseif($parts["path"] == "/study-results/group")
+                            <a href="{{ route('group_results', ['course_id'=>$course_id, 'group_id'=>$group_id]) }}" class="position-absolute top-2 start-0 ms-3" >
+                                <img src="/images/back.png" height="20" class="img-back">
+                            </a>
+                        @endif
                     </div>
                 </div>
-                <div class="card-body ">
-                    <div class="alert ">
+                <div class="card-body">
+                    <div class="alert">
                         <div class="alert">
                             <form method="POST" class="mt-2" action="{{ route('find_student')}}">
                                 @csrf
@@ -26,11 +34,9 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="alert card  ">
+                        <div class="alert card">
                             <div class="col-md-12">
                                 <div class="row mb-3">
-
-                                    <div>
                                         @if ($msg == "Пользователь не найден!")
                                             <h3>{{$msg}}</h3>
                                         @elseif($msg == "Введите имя студенета!")
@@ -66,12 +72,6 @@
                                                 <h3>Студент еще не начал изучать курс. </h3>
                                             @endif
                                         @endif
-                                        <a class="btn  btn-back btnAdmin mt-2" href="{{ route('group_results', ['course_id'=>$course_id, 'group_id'=>$group_id]) }}">
-                                            Назад
-                                        </a>
-
-                                    </div>
-
                                 </div>
                             </div>
                         </div>

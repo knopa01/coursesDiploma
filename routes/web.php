@@ -12,7 +12,7 @@ use App\Http\Controllers\Student\SelectedCoursesController;
 use App\Http\Controllers\Student\TrainingController;
 use App\Http\Controllers\Teacher\StudyResultsController;
 use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +33,9 @@ Auth::routes();
 Route::get('/register', [RegisterController::class, 'register_form'])->name('register_form');
 Route::post('/register/submit', [RegisterController::class, 'register'])->name('myregister');
 
+//settings
+Route::get('/settings', [HomeController::class, 'settings_form'])->name('settings_form');
+Route::post('/settings/save', [HomeController::class, 'save_settings'])->name('save_settings');
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //admin
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth')->name('admin');
