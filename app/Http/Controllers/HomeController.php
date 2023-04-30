@@ -64,14 +64,9 @@ class HomeController extends Controller
                         //dd("tut");
                         $fail('Выберете группу!');
                     }
-
                 }
-
-
             },
             'password' => function($attribute, $value, $fail) {
-
-
                 if(is_string(request()->password) == false) {
                     $fail('Пароль должен быть строкой!');
                 }
@@ -88,7 +83,6 @@ class HomeController extends Controller
         ],[
             'usergroup' => "Выберите значение!",
             'email.required' => "Введите e-mail!",
-
         ]);
         $email = request()->email;
         $password = request()->password;
@@ -96,17 +90,17 @@ class HomeController extends Controller
         $usergroup = request()->usergroup;
         //dd($usergroup);
         $user = User::find(Auth::id());
+        $msg = "Данные не изменились.";
         if($user->email != $email || $user->password != $password || $usergroup != $user->user_group_id) {
             $user->email = $email;
             if($password != "") {
                 $user->password = Hash::make($password);
             }
-
             $user->user_group_id = $usergroup;
             $user->save();
             $msg = "Данные изменены успешно!";
         }
-        $msg = "Данные не изменились.";
+
         /*
         $user_info = User::find(Auth::id());
         $groups = Group::all();

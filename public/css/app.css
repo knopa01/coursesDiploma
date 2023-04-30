@@ -15,15 +15,13 @@ body {
 
 }
 .links {
-
     color: white;
-
     text-decoration: none
 }
 .btn-login:hover, .btn-login:active {
     background: #3e1d4d;
+    border: 1px solid #3e1d4d;
     color: white;
-
 }
 .btn-save {
     background-color: #8FB92A;
@@ -66,6 +64,9 @@ body {
 .nav-link {
     color: white
 }
+.nav-link:hover {
+    color:#7F8084;
+}
 nav-link {
     color: white
 }
@@ -73,16 +74,18 @@ nav-link {
     background: #364658;
 }
 .loginInputs{
-    background: #364658;
+    background: #21272f;
     color: white;
-    border-color: #364658;
+    border-color: #21272f;
+    box-shadow: 3px 3px 5px #0c0f13;
     text-decoration: none
 }
 .loginInputs:focus{
-    background: #364658;
+    background-color: #293542;
     color: white;
-    border-color: #364658;
-    box-shadow: 2px 2px 3px 0 #6e91bb;
+    border-color: #293542;
+    box-shadow: 3px 3px 5px #0c0f13;
+    outline:none;
 }
 .logo{
     width: 40px;
@@ -128,9 +131,6 @@ nav-link {
     flex-direction: column;
     display: flex;
     justify-content: center;
-
-
-
     box-shadow: 3px 5px 5px #0c0f13;
 }
 .course-content {
@@ -143,7 +143,19 @@ nav-link {
 
     box-shadow: 3px 3px 5px #0c0f13;
 }
-
+.mydropdown {
+    background-color: #21272f;
+    color: white;
+    box-shadow: 3px 3px 5px #0c0f13;
+}
+.dropdown_link {
+    background-color: #21272f;
+    color: white;
+}
+.dropdown_link:hover {
+    background: #1A1F25;
+    color:#7F8084;
+}
 .course:hover, .course-content:hover {
     background-color: #293542;
 }
@@ -191,5 +203,7 @@ nav-link {
 .button_size{
     height: 40px;
 }
+
+
 
 

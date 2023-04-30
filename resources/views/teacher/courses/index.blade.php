@@ -11,12 +11,8 @@
                         @foreach($data as $elem)
                             <div class="col-md-4 gy-3">
                                 <a href="{{ route('manage_course', ['course_id'=>$elem->id]) }}" class="text-center text-decoration-none text-white">
-                                    <div class="alert course ">
-
+                                    <div class="alert course">
                                             <h3 class="text-center">{{ $elem->course_name }}</h3>
-
-
-
                                     </div>
                                 </a>
                             </div>

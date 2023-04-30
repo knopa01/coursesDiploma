@@ -47,7 +47,7 @@
                         {{ config('SSUGT Courses', 'SSUGT Courses') }}
                     </a>
                 @else
-                    <a class="navbar-brand text-white" href="{{ url('/home') }}">
+                    <a class="navbar-brand text-white " href="{{ url('/home') }}">
                         <img class="logo" src="{{asset('images/logo.png')}}">
                         {{ config('SSUGT Courses', 'SSUGT Courses') }}
                     </a>
@@ -80,7 +80,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}">{{ __('Мои курсы') }}</a>
+                                <a class="nav-link " href="{{ url('/home') }}">{{ __('Мои курсы') }}</a>
                             </li>
                             @if ( Auth::user()->usertype == "teacher")
                                 <li class="nav-item">
@@ -88,12 +88,12 @@
                                 </li>
                             @endif
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                <div class="dropdown-menu dropdown-menu-end mydropdown text-center" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item dropdown_link" href="{{route('settings_form')}}">Настройки</a>
+                                    <a class="dropdown-item dropdown_link" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Выход') }}
@@ -101,7 +101,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                    <a class="dropdown-item" href="{{route('settings_form')}}">Настройки</a>
+
                                 </div>
                             </li>
                         @endguest

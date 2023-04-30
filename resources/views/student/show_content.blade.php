@@ -3,22 +3,25 @@
 
 <div class="container ">
     @if (count($navbar) != 0 && count($contents) != 0)
-    <div class="row justify-content-left">
-        <div class="col-md-8">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Содержание:') }}</div>
+                <div class="card-header">{{ __('Содержание курса:') }}</div>
                 <div class="card-body ">
                     <ul>
                         @foreach ($navbar as $n)
                             <li><a href="#" class="links">{{$n->content_name}}</a></li>
                         @endforeach
                     </ul>
+
                     @php
                         $i = 0;
                         $current_task_done = false;
                     @endphp
                     @foreach ($contents as $content)
+
                         <div class="alert card">
+
                             <p>{{$content->content_name}}</p>
                             <pre>{!! $content->content_description !!}</pre>
 

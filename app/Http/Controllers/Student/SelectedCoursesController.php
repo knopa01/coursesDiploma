@@ -17,7 +17,6 @@ class SelectedCoursesController extends Controller
         $data = null;
         $courses = $user->student_courses;
         //dd($courses);
-
         if ($courses->count() != 0) {
             $i = 0;
             foreach ($courses as $course) {
@@ -50,10 +49,16 @@ class SelectedCoursesController extends Controller
     }
     public function find_course(Request $request)
     {
+        $msg = request()->msg;
         $name = $request->name;
         $courses = Courses::where('course_name', 'LIKE', "%{$name}%")->get();
+
+        if($name != "" && count($courses) == 0 ) {
+            $msg = "По Вашему запросу ничего не найдено!";
+
+        }
         $data = [];
-        if ($courses)
+        if (count($courses) != 0)
         {
             $i = 0;
             foreach ($courses as $course)
@@ -64,14 +69,29 @@ class SelectedCoursesController extends Controller
                 ];
                 $i++;
             }
+        } else {
+            $courses = Courses::all();
+            $i = 0;
+            foreach ($courses as $course)
+            {
+                $data[$i] = [
+                    "course" => $course,
+                    "teacher" =>  User::where('id', '=', $course->user_id)->get()[0]->name
+                ];
+                $i++;
+            }
         }
-        return view('student.find_course', compact('data'));
+        //dd($data);
+
+
+
+
+        return view('student.find_course', compact('data', 'msg'));
     }
     public function add_course() {
         $user_id = Auth::id();
         $user = User::find($user_id);
         $course_id = request()->course_id;
-
         $find_course = StudentCourse::where([
             ['user_id', '=', $user_id],
             ['course_id', '=', $course_id]
@@ -84,8 +104,9 @@ class SelectedCoursesController extends Controller
             $data = $user->student_courses;
             return redirect(route('home'));
         } else {
-            $message = "Вы уже изучаете данный курс";
-            return view('student.add_course', compact('message'));
+            $msg = "Вы уже изучаете данный курс!";
+           // return view('student.add_course', compact('message'));
+            return redirect(route('find_course', ['msg' => $msg]));
             //return redirect(route('search_course'));
         }
         //dd($find_course);
@@ -99,7 +120,6 @@ class SelectedCoursesController extends Controller
             )
         ]);
         */
-
     }
 
     public function course_info() {
