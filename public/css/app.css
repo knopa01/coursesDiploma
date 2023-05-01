@@ -203,7 +203,11 @@ nav-link {
 .button_size{
     height: 40px;
 }
+.pagination_style {
+    background-color: #21272f;
 
+    box-shadow: 3px 3px 5px #0c0f13;
+}
 
 
 

@@ -3,6 +3,7 @@
 
 <div class="container ">
     @if (count($contents) != 0)
+
     @php
         $i = 0;
         $current_task_done = false;
@@ -19,32 +20,51 @@
                         }
                     }
                 @endphp
+            @endif
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="position-relative">
-                                <div class="card-header ms-4">
-                                    @if($content->type_of_content == "task")
-                                        <h3>Задача
-                                            <a href="{{route("home")}}" class="position-absolute top-2 start-0 ms-3" >
-                                                <img src="/images/back.png" height="20" class="img-back">
-                                            </a>
-                                            "{{$content->content_name}}"
-                                            @if($current_task_done == true)
-                                                <img src="/images/verified.png" height="25" style="margin-right: 10px" class="position-absolute top-50 end-0 translate-middle-y ">
-                                            @endif
-                                        </h3>
 
-                                    @elseif($content->type_of_content == "lecture")
-                                        <h3>Теория
-                                            <a href="{{route("home")}}" class="position-absolute top-2 start-0 ms-3" >
-                                                <img src="/images/back.png" height="20" class="img-back">
+                                @if($content->type_of_content == "task")
+                                    @if($current_task_done == true)
+                                        <div class="card-header position-relative " style="background-color: #8FB92A; height: 50px">
+                                            <a href="{{route("home")}}" class="position-absolute top-50 start-0 translate-middle-y" >
+                                                <img src="/images/back.png" height="20" class="img-back w-100">
                                             </a>
+                                                <h4  class=" position-absolute top-50 start-0 translate-middle-y" style="margin-left: 30px; padding-top: 5px">Задача
+                                                    "{{$content->content_name}}"
+                                                </h4>
+                                            <img src="/images/verified.png" height="25" style="margin-right: 10px" class="position-absolute top-50 end-0 translate-middle-y ">
+
+                                        </div>
+                                    @else
+                                    <div class="card-header position-relative" style=" height: 50px">
+                                        <a href="{{route("home")}}" class="position-absolute top-50 start-0 translate-middle-y" >
+                                            <img src="/images/back.png" height="20" class="img-back w-100">
+                                        </a>
+                                        <h4  class=" position-absolute top-50 start-0 translate-middle-y" style="margin-left: 30px; padding-top: 5px">Задача
                                             "{{$content->content_name}}"
-                                        </h3>
+                                        </h4>
+                                    </div>
                                     @endif
+                                @elseif($content->type_of_content == "lecture")
+                                <div class="card-header position-relative" style=" height: 50px">
+                                    <a href="{{route("home")}}" class="position-absolute top-50 start-0 translate-middle-y" >
+                                        <img src="/images/back.png" height="20" class="img-back w-100">
+                                    </a>
+                                    <h4  class=" position-absolute top-50 start-0 translate-middle-y" style="margin-left: 30px; padding-top: 5px">Теория
+                                        "{{$content->content_name}}"
+                                    </h4>
+                                </div>
+                                @endif
+
+                                <div class="pagination mt-2 ms-2">
+                                    {{ $contents->appends(request()->except('page'))->links() }}
                                 </div>
                             </div>
+
+
                             <div class="card-body ">
                                 {{--
                                 <ul>
@@ -53,9 +73,7 @@
                                     @endforeach
                                 </ul>
                                 --}}
-                                <div class="pagination pagination-lg">
-                                    {{ $contents->appends(request()->except('page'))->links() }}
-                                </div>
+
                                 <div class="alert ">
                                     <h3>{{$content->content_name}}</h3>
                                     <pre>{!! $content->content_description !!}</pre>
@@ -93,7 +111,7 @@
                                             }
                                     --}}
 
-
+                                    @if($content->type_of_content == "task")
                                         @if($current_task_done == false)
                                             <form method="POST" action="{{ route('test_code', ['course_id'=>$content->course_id]) }}">
                                                 @csrf
@@ -128,6 +146,7 @@
                                         @else
                                             <h3>Задача решена!</h3>
                                         @endif
+                                    @endif
 
                                 </div>
                             </div>
@@ -135,7 +154,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+
     @endforeach
 @else
     <p>Преподаватель еще не добавил заданий :(</p>
