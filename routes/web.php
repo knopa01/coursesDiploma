@@ -33,6 +33,7 @@ Auth::routes();
 Route::get('/register', [RegisterController::class, 'register_form'])->name('register_form');
 Route::post('/register/submit', [RegisterController::class, 'register'])->name('myregister');
 
+
 //settings
 Route::get('/settings', [HomeController::class, 'settings_form'])->name('settings_form');
 Route::post('/settings/save', [HomeController::class, 'save_settings'])->name('save_settings');
