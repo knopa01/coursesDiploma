@@ -49,6 +49,7 @@ Route::post('/admin/groups/save', [AdminController::class, 'create_group'])->mid
 Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
 //teacher
 
+
 //course
 Route::get('/home/create-course', [ManageCourseController::class, 'show_form'])->middleware(['auth'])->name('create_course');
 Route::post('/home/create-course/submit', [ManageCourseController::class, 'create_course'])->middleware(['auth'])->name('created_course');

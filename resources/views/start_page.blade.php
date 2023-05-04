@@ -7,6 +7,7 @@
     <title>Laravel</title>
     @viteReactRefresh
     @viteReactRefresh
+
     @vite(['resources/js/app.js'])
 
     <!-- Fonts -->
