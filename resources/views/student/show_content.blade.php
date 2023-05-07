@@ -119,12 +119,12 @@
                                                     <label for="source_code" class=" col-form-label text-md-end">Введите код:</label>
                                                     <div class="form-group col-md-10">
 
-                                                        <textarea id="source_code" class="form-control loginInputs" name="source_code">{{old('source_code')}}</textarea>
+                                                        <textarea id="source_code" class="form-control loginInputs" spellcheck="false" name="source_code">{{old('source_code')}}</textarea>
                                                     </div>
                                                     <label for="result" class=" col-form-label text-md-end">Результат:</label>
                                                     <div class="form-group col-md-10">
 
-                                                        <textarea id="result" class="form-control loginInputs" name="result">{!! \Session::get('msg') !!}</textarea>
+                                                        <textarea id="result" spellcheck="false" class="form-control loginInputs" name="result">{!! \Session::get('msg') !!}</textarea>
                                                     </div>
 
                                                     <script>
@@ -157,7 +157,7 @@
 
     @endforeach
 @else
-    <p>Преподаватель еще не добавил заданий :(</p>
+    <h3 class="mt-2">Преподаватель еще не добавил заданий :(</h3>
 @endif
 @php
     $i = 0;

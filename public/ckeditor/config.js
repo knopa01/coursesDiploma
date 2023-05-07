@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.language = 'ru';
 
     config.contentsCss = ["/css/app.css"];
-
+    //config.disableNativeSpellChecker = true;
     config.uiColor = '#0E294B'
 	config.toolbarGroups = [
         {name: 'language', groups: ['ru']},

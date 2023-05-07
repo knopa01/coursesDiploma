@@ -42,28 +42,22 @@
                                         @elseif($msg == "Введите имя студенета!")
                                             <h3>{{$msg}}</h3>
                                         @else
+                                        <h3>Студент: {{ $student_info->name }}</h3>
+                                        <h3>Группа {{$group_name}}</h3>
                                             @if (count($in_progress) != 0)
+                                                @if($in_progress[0]["course"]->done_date != null)
+                                                    <h4>Курс пройден: {{$in_progress[0]["course"]->done_date}}</h4>
+                                                @else
+                                                    <h4>Процент выполненных задач: {{$in_progress[0]["percent"]}}%</h4>
+                                                @endif
                                                 @foreach ($in_progress as $elem)
                                                     <div class="col-md-12 mt-2 ">
-                                                        <div class="alert course-content">
-                                                            <div>
-                                                                <h3>Студент: {{ $elem["student"]->name }}</h3>
-                                                                <h3>Группа {{$group_name}}</h3>
-                                                                @if($elem["course"]->done_date != null)
-                                                                    <h3>Курс пройден: {{$elem["course"]->done_date}}</h3>
-
-                                                                @endif
-                                                                @if($elem["tasks"] == null)
-                                                                    <h3>Студент еще не решил задачи.</h3>
-                                                                @else
-                                                                    @foreach ($elem["tasks"] as $task)
-                                                                        <h3>Задача: {{ $task["task_name"] }}</h3>
-                                                                        <h3>Дата выполнения: {{ $task["task_info"]->done_date }}</h3>
-                                                                    @endforeach
-                                                                @endif
-
+                                                        @foreach ($elem["tasks"] as $task)
+                                                            <div class="alert course-content">
+                                                                <h3>Задача: {{ $task["task_name"] }}</h3>
+                                                                <h3>Дата выполнения: {{ $task["task_info"]->done_date }}</h3>
                                                             </div>
-                                                        </div>
+                                                        @endforeach
                                                     </div>
 
                                                 @endforeach

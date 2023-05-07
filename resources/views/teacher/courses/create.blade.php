@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Создать курс') }}</div>
 
@@ -62,8 +62,8 @@
                         </div>
                         <div class="row mb-3">
                             <label for="course_description" class="col-md-4 col-form-label text-md-end">Описание курса</label>
-
-                            <div class="col-md-6">
+                            <br>
+                            <div class="col-md-10 mx-auto">
                                 <textarea id="course_description" class="form-control description description @error('course_description') is-invalid @enderror" name="course_description">{{old('course_description')}}</textarea>
                                 @error('course_description')
                                 <span class="invalid-feedback" role="alert">
@@ -73,6 +73,16 @@
 
                                 <script>
                                     CKEDITOR.replace( 'course_description' );
+                                    var tx = document.getElementsByTagName('course_description');//РАСТЯГИВАЕМ_textarea
+                                    for (var i = 0; i < tx.length; i++) {
+                                        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+                                        tx[i].addEventListener("input", OnInput, false);
+                                    }
+                                    function OnInput() {
+                                        this.style.height = 'auto';
+                                        this.style.height = (this.scrollHeight) + 'px';//////console.log(this.scrollHeight);
+                                    }
+
 
 
                                 </script>
@@ -84,7 +94,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 mx-auto">
                                 <button type="submit" class="btn btn-save">
                                     Создать курс
                                 </button>
