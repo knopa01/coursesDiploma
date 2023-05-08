@@ -62,10 +62,10 @@ Route::get('/home/course/content', [CourseContentController::class, 'show_conten
 Route::post('/home/edit-content/submit', [CourseContentController::class, 'edit_content'])->middleware(['auth'])->name('edit_content');
 Route::get('/home/delete-content', [CourseContentController::class, 'delete_content'])->middleware(['auth'])->name('delete_content');
 Route::post('/home/create-content/submit', [CourseContentController::class, 'create_content'])->middleware(['auth'])->name('created_content');
-Route::post('/home/edit-course/submit', [CourseContentController::class, 'edit_course'])->middleware(['auth'])->name('edit_course');
+Route::post('/home/edit-course/submit', [CourseContentController::class, 'edit_course'])->middleware(['auth', 'courses'])->name('edit_course');
 //tests
 Route::get('/home/course/content/create-test', [CourseContentController::class, 'create_test_form'])->middleware(['auth', 'contents'])->name('create_test');
-Route::post('/home/course/content/submit', [CourseContentController::class, 'create_test'])->middleware(['auth'])->name('created_test');
+Route::post('/home/course/content/submit', [CourseContentController::class, 'create_test'])->middleware(['auth' ])->name('created_test');
 Route::get('/home/course/content/test', [CourseContentController::class, 'show_test'])->middleware(['auth', 'tests'])->name('manage_test');
 Route::post('/home/edit-test/submit', [CourseContentController::class, 'edit_test'])->middleware(['auth'])->name('edit_test');
 Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])->middleware(['auth'])->name('delete_test');
