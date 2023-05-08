@@ -124,17 +124,24 @@
                                                     <label for="result" class=" col-form-label text-md-end">Результат:</label>
                                                     <div class="form-group col-md-10">
 
-                                                        <textarea id="result" spellcheck="false" class="form-control loginInputs" name="result">{!! \Session::get('msg') !!}</textarea>
+                                                        <textarea id="result" spellcheck="false" class="form-control loginInputs" name="result" style="height: auto;">{!! \Session::get('msg') !!}</textarea>
                                                     </div>
-
+                                                    {{--
                                                     <script>
-                                                        var input = document.getElementById("result").value;
-                                                        //alert(input);
-                                                        if (input == "Задание выполнено верно!") {
-                                                            document.getElementById("submit").disabled = true;
+                                                        var textarea = document.getElementsByTagName('result')[0];
+
+                                                        textarea.addEventListener('keydown', resize);
+
+                                                        function resize() {
+                                                            var el = this;
+                                                            setTimeout(function() {
+                                                                el.style.cssText = 'height:auto; padding:0';
+                                                                el.style.cssText = 'height:' + el.scrollHeight + 'px';
+                                                            }, 1);
                                                         }
 
                                                     </script>
+                                                    --}}
                                                 <br>
 
                                                 <button id="submit" type="submit" class="btn btn-login ">Проверить</button>

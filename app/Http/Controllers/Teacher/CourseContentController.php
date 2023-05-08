@@ -85,8 +85,9 @@ class CourseContentController extends Controller
     }
 
 
-    public function show_content($course_id, $content_id) {
-
+    public function show_content(Request $request) {
+        $course_id = $request->course_id;
+        $content_id = $request->content_id;
         $data = Content::where('id', '=', $content_id)->get();
         //dd($data);
 
@@ -99,8 +100,10 @@ class CourseContentController extends Controller
     }
 
 
-    public function show_test($course_id, $content_id, $test_id) {
-
+    public function show_test() {
+        $course_id = request()->course_id;
+        $content_id = request()->content_id;
+        $test_id = request()->test_id;
         $data = Test::where('id', '=', $test_id)->get();
         return view("teacher.courses.edit_test", ['data' => $data, 'content_id'=>$content_id, 'course_id' => $course_id]);
     }

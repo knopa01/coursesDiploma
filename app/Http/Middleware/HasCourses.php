@@ -6,9 +6,10 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Courses;
 
 
-class Courses
+class HasCourses
 {
     /**
      * Handle an incoming request.
@@ -17,11 +18,14 @@ class Courses
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        //$user = Auth::user();
-
-        //dd(Auth::id());
         $course_id = $request->course_id;
-        return $next($request);
+        $user = Auth::id();
+        $course = Courses::find($course_id);
+        if($course) {
+            if($course->user_id == $user) {
+                return $next($request);
+            }
+        }
+        return(redirect('home'));
     }
 }
