@@ -12,20 +12,25 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('add_course') }}">
-                        @csrf
-                        <div class="alert course">
-                            <h3>Название курса: {{ $data["course"]->course_name }}</h3>
-                            <h3>Описание курса: {{ $data["course"]->course_description }}</h3>
-                            <h3>Преподаватель: {{ $data["teacher"] }}</h3>
-                            <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$data["course"]->id}}>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-2">
-                                <button type="submit" class="btn btn-primary btn-login">Начать изучение</button>
+                    @if(count($data) != 0)
+                        <form method="POST" action="{{ route('add_course') }}">
+                            @csrf
+
+                            <div class="alert course">
+                                <h3>Название курса: {{ $data["course"]->course_name }}</h3>
+                                <h3>Описание курса: {{ $data["course"]->course_description }}</h3>
+                                <h3>Преподаватель: {{ $data["teacher"] }}</h3>
+                                <input type="hidden" class="form-control" id="course_id" name="course_id" value={{$data["course"]->id}}>
                             </div>
-                        </div>
-                    </form>
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <button type="submit" class="btn btn-primary btn-login">Начать изучение</button>
+                                </div>
+                            </div>
+                        </form>
+                    @else
+                        <h3>Данного курса не существует!</h3>
+                    @endif
                 </div>
             </div>
         </div>

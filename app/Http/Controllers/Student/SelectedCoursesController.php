@@ -125,11 +125,15 @@ class SelectedCoursesController extends Controller
     public function course_info() {
         $course_id = request()->course_id;
         $course = Courses::where('id', '=', $course_id)->get();
+        $data = [];
         //dd($course);
-        $data = [
-            "course" => $course[0],
-            "teacher" =>  User::where('id', '=', $course[0]->user_id)->get()[0]->name
-        ];
+        if(count($course) != 0) {
+            $data = [
+                "course" => $course[0],
+                "teacher" =>  User::where('id', '=', $course[0]->user_id)->get()[0]->name
+            ];
+        }
+
         //dd($data);
         return view('student.course_info', compact('data'));
 

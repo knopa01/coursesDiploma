@@ -46,7 +46,7 @@
                                         <button type="submit" class="btn btn-save">
                                             Сохранить
                                         </button>
-                                        <a href="{{ route('delete_test', ['test_id'=>$data[0]->id]) }}" class="btn btn-danger ms-1">Удалить тест</a>
+                                        <a href="{{ route('delete_test', ['test_id'=>$data[0]->id, 'content_id'=>$content_id, 'course_id'=>$course_id]) }}" class="btn btn-danger ms-1">Удалить тест</a>
                                     </div>
                                 </div>
 

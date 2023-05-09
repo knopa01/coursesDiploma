@@ -6,11 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\StudentCourse;
 use App\Models\Courses;
 
 
-class HasCourses
-{
+class StudentCourseContents {
     /**
      * Handle an incoming request.
      *
@@ -29,20 +29,16 @@ class HasCourses
         }
         //dd($parts["path"]);
         */
-
         $course_id = $request->course_id;
-        $user = Auth::id();
         $course = Courses::find($course_id);
-        if($course) {
-            if($course->user_id == $user) {
+        $student_course_id = $request->student_course_id;
+        $user = Auth::id();
+        $student_course = StudentCourse::find($student_course_id);
+        if($student_course && $course) {
+            if($student_course->user_id == $user && $student_course->course_id == $course_id) {
                 return $next($request);
             }
         }
-
-
         return(redirect('home'));
-
-
-
     }
 }

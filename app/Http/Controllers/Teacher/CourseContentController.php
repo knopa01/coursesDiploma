@@ -221,8 +221,8 @@ class CourseContentController extends Controller
 
                     foreach($all_content as $i) {
                         if ($i->sort == request()->content_sort && $i->id != request()->content_id) {
-                            //dd("Уже было");
-                            $fail('Данный порядковый номер '.$i.' уже существует!');
+
+                            $fail('Данный порядковый номер '.$i->sort.' уже существует!');
 
                         }
                     }

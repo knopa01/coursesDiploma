@@ -7,7 +7,7 @@
                 <div class="card-header">{{ __('Добавить тест') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('created_test', ['course_id'=>$course_id, 'content_id'=>$content_id]) }}">
+                    <form method="POST" action="{{ route('created_test') }}">
                         @csrf
 
                         <div class="alert ">

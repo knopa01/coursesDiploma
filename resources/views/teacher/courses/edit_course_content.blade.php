@@ -79,9 +79,9 @@
                                                 Сохранить
                                             </button>
                                             @if ($data[0]->type_of_content == "task")
-                                                <a href="{{ route('delete_content', ['content_id'=>$data[0]->id]) }}" class="btn btn-cancel ms-1">Удалить задачу</a>
+                                                <a href="{{ route('delete_content', ['content_id'=>$data[0]->id, 'course_id'=>$course_id]) }}" class="btn btn-cancel ms-1">Удалить задачу</a>
                                             @else
-                                                <a href="{{ route('delete_content', ['content_id'=>$data[0]->id]) }}" class="btn btn-cancel ms-1">Удалить теорию</a>
+                                                <a href="{{ route('delete_content', ['content_id'=>$data[0]->id, 'course_id'=>$course_id]) }}" class="btn btn-cancel ms-1">Удалить теорию</a>
                                             @endif
                                         </div>
 

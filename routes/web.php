@@ -55,26 +55,26 @@ Route::get('/home', [GetUserTypeController::class, 'index'])->name('home');
 Route::get('/home/create-course', [ManageCourseController::class, 'show_form'])->middleware(['auth'])->name('create_course');
 Route::post('/home/create-course/submit', [ManageCourseController::class, 'create_course'])->middleware(['auth'])->name('created_course');
 Route::get('/home/course', [CourseContentController::class, 'index'])->middleware(['auth', 'courses'])->name('manage_course');
-Route::get('/home/delete-course', [ManageCourseController::class, 'delete_course'])->middleware(['auth' ])->name('delete_course');
+Route::get('/home/delete-course', [ManageCourseController::class, 'delete_course'])->middleware(['auth', 'courses' ])->name('delete_course');
 //course content
 Route::get('/home/course/create-content', [CourseContentController::class, 'show_form'])->middleware(['auth', 'courses'])->name('create_content');
 Route::get('/home/course/content', [CourseContentController::class, 'show_content'])->middleware(['auth', 'courses', 'contents'])->name('manage_content');
 Route::post('/home/edit-content/submit', [CourseContentController::class, 'edit_content'])->middleware(['auth'])->name('edit_content');
-Route::get('/home/delete-content', [CourseContentController::class, 'delete_content'])->middleware(['auth'])->name('delete_content');
+Route::get('/home/delete-content', [CourseContentController::class, 'delete_content'])->middleware(['auth', 'contents'])->name('delete_content');
 Route::post('/home/create-content/submit', [CourseContentController::class, 'create_content'])->middleware(['auth'])->name('created_content');
 Route::post('/home/edit-course/submit', [CourseContentController::class, 'edit_course'])->middleware(['auth', 'courses'])->name('edit_course');
 //tests
 Route::get('/home/course/content/create-test', [CourseContentController::class, 'create_test_form'])->middleware(['auth', 'contents'])->name('create_test');
-Route::post('/home/course/content/submit', [CourseContentController::class, 'create_test'])->middleware(['auth' ])->name('created_test');
+Route::post('/home/course/content/submit', [CourseContentController::class, 'create_test'])->middleware(['auth'])->name('created_test');
 Route::get('/home/course/content/test', [CourseContentController::class, 'show_test'])->middleware(['auth', 'tests'])->name('manage_test');
 Route::post('/home/edit-test/submit', [CourseContentController::class, 'edit_test'])->middleware(['auth'])->name('edit_test');
-Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])->middleware(['auth'])->name('delete_test');
+Route::get('/home/delete-test', [CourseContentController::class, 'delete_test'])->middleware(['auth', 'tests'])->name('delete_test');
 
 //study results
 Route::get('/study-results', [StudyResultsController::class, 'index'])->middleware(['auth'])->name('study_results');
 Route::get('/study-results/show', [StudyResultsController::class, 'show_results'])->middleware(['auth'])->name('show_study_results');
 Route::match(['get', 'post'],'/study-results/student', [StudyResultsController::class, 'find_student'])->middleware(['auth'])->name('find_student');
-Route::match(['get', 'post'],'/study-results/search', [StudyResultsController::class, 'show_study_form'])->middleware(['auth'])->name('show_study_form');
+Route::match(['get', 'post'],'/study-results/search', [StudyResultsController::class, 'show_study_form'])->middleware(['auth', 'courses'])->name('show_study_form');
 Route::match(['get', 'post'],'/study-results/group', [StudyResultsController::class, 'group_results'])->middleware(['auth'])->name('group_results');
 
 
@@ -83,9 +83,9 @@ Route::match(['get', 'post'],'/study-results/group', [StudyResultsController::cl
 Route::match(['get', 'post'],'/home/search-course', [SelectedCoursesController::class, 'find_course'])->middleware(['auth'])->name('find_course');
 Route::get('/home/about', [SelectedCoursesController::class, 'course_info'])->middleware(['auth'])->name('course_info');
 Route::post('/home/add-course', [SelectedCoursesController::class, 'add_course'])->middleware(['auth'])->name('add_course');
-Route::get('/home/{course_id}', [TrainingController::class, 'course_content'])->middleware(['auth'])->name('course_content');
+Route::get('/home/course', [TrainingController::class, 'course_content'])->middleware(['auth', 'student_courses'])->name('course_content');
 Route::post('/home/{course_id}/test', [TrainingController::class, 'test_code'])->middleware(['auth'])->name('test_code');
-Route::get('/home/{course_id}/studying', [TrainingController::class, 'show_content'])->middleware(['auth'])->name('show_content');
+Route::get('/home/course/studying', [TrainingController::class, 'show_content'])->middleware(['auth', 'student_courses'])->name('show_content');
 Route::get('/home/delete-student-course', [SelectedCoursesController::class, 'delete_student_course'])->middleware(['auth'])->name('delete_student_course');
 
 

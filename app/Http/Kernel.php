@@ -78,6 +78,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'courses' => \App\Http\Middleware\HasCourses::class,
         'contents' => \App\Http\Middleware\HasContent::class,
-        'tests' => \App\Http\Middleware\HasTest::class
+        'tests' => \App\Http\Middleware\HasTest::class,
+        'student_courses' => \App\Http\Middleware\StudentCourses::class,
     ];
 }
