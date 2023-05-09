@@ -39,13 +39,18 @@ class StudentCourseContents {
         $user = Auth::id();
         $student_course = StudentCourse::find($student_course_id);
         if($student_course && $course) {
+
             if($student_course->user_id == $user && $student_course->course_id == $course_id) {
+
                 $page = $request->page;
                 if($page != null) {
                     $course_count = Content::where('course_id', '=', $course_id)->count();
+                    //dd($course_count);
                     if($page <= $course_count) {
                         return $next($request);
                     }
+                } else{
+                    return $next($request);
                 }
             }
         }

@@ -62,9 +62,10 @@
                 @endif
             </ul>
         </div>
+
     </div>
 </nav>
-
+<img src="/images/programmist.png">
 
 </body>
 </html>

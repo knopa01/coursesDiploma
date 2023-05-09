@@ -31,6 +31,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/app.css') }}">
+    <link rel="icon" href="images/logo.ico" type="image/x-icon">
+
 
     <!--<script src="https://cdn.ckeditor.com/4.21.0/basic/ckeditor.js"></script>-->
 

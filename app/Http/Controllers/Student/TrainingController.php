@@ -122,6 +122,15 @@ class TrainingController extends Controller
         }
     }
     public function test_code() {
+        $validator = request()->validate([
+
+            'content_id' => ['required'],
+            'course_id' => ['required'],
+            'source_code' => ['required']
+        ],[
+            'source_code.required' => 'Введите код для проверки!',
+
+        ]);
         $content_id = request()->content_id;
         $course_id = request()->course_id;
         $source_code = request()->source_code;
