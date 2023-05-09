@@ -29,6 +29,7 @@ class StudentCourses {
         }
         //dd($parts["path"]);
         */
+        //dd($request);
         $course_id = $request->course_id;
         $course = Courses::find($course_id);
         $student_course_id = $request->student_course_id;

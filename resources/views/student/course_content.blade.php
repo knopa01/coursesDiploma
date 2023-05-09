@@ -43,7 +43,7 @@
                             </div>
                             <div style="margin-top: 50px;">
                                 <a href="{{ route('show_content', ['course_id'=>$course_data->id, 'student_course_id'=>$student_course_id])}}" class="btn btn-login ">Начать обучение</a>
-                                <a href="{{ route('delete_student_course', ['student_course_id'=>$student_course_id]) }}" class="btn btn-cancel ms-2" >Удалить курс</a>
+                                <a href="{{ route('delete_student_course', ['student_course_id'=>$student_course_id, 'course_id'=>$course_data->id]) }}" class="btn btn-cancel ms-2" >Удалить курс</a>
                             </div>
 
 
