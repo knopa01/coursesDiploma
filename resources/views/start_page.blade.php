@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/app.css') }}">
 
 </head>
-<body class="antialiased">
+<body>
 <nav class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         @guest
@@ -65,7 +65,35 @@
 
     </div>
 </nav>
-<img src="/images/programmist.png">
+<div class="container mt-5">
+    {{--
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <p class="text-md-left " style="font-size: 1.5rem;">Добро пожаловать на платформу для обучения курсы СГУГиТ!</p>
+
+        </div>
+        <div class="col-12 col-md-6">
+            <div class='d-flex justify-content-end'>
+                <img src="/images/welcome.png"  class=" img-fluid">
+            </div>
+        </div>
+    </div>
+    --}}
+    <div class="justify-content-center">
+        <p class="text-center fw-lighter font-monospace fs-3" >Добро пожаловать на платформу для обучения рпограммированию Курсы СГУГиТ</p>
+        <img src="/images/welcome.png"  style="width: 70%; height: 70%; margin-left: 20%" class=" img-fluid">
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 </body>
 </html>
