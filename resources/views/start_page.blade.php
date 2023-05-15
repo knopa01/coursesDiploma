@@ -80,7 +80,7 @@
     </div>
     --}}
     <div class="justify-content-center">
-        <p class="text-center fw-lighter font-monospace fs-3" >Добро пожаловать на платформу для обучения рпограммированию Курсы СГУГиТ</p>
+        <p class="text-center fw-lighter font-monospace fs-3" >Добро пожаловать на платформу для обучения программированию Курсы СГУГиТ</p>
         <img src="/images/welcome.png"  style="width: 70%; height: 70%; margin-left: 20%" class=" img-fluid">
     </div>
 
